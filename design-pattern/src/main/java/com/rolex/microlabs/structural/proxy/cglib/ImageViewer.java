@@ -3,7 +3,6 @@
  */
 package com.rolex.microlabs.structural.proxy.cglib;
 
-
 /**
  * @author rolex
  * @since 2020
