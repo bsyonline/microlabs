@@ -5,10 +5,13 @@ server:
   port: 8422
 ribbon:
   eager-load:
-    enabled: true
+    enabled: true #第一次加载client时间很长，开启提前加载
 eureka:
   instance:
     prefer-ip-address: true
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+logging:
+  level:
+    root: debug

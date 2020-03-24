@@ -17,7 +17,7 @@ public class MyPing extends AbstractLoadBalancerPing {
 
     @Override
     public boolean isAlive(Server server) {
-        return LocalTime.now().isBefore(LocalTime.of(12,0));
+        return LocalTime.now().isBefore(LocalTime.of(23,0));
     }
 
     @Override
