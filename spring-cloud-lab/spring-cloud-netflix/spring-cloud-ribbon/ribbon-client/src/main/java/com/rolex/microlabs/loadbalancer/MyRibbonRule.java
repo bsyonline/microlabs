@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2019 bsyonline
  */
-package com.rolex.microlabs.rule;
+package com.rolex.microlabs.loadbalancer;
 
 import com.netflix.client.config.IClientConfig;
 import com.netflix.loadbalancer.AbstractLoadBalancerRule;

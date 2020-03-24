@@ -2,10 +2,10 @@ spring:
   application:
     name: ribbon-server
 server:
-  port: 8300
+  port: 8302
 eureka:
   instance:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://localhost:18761/eureka
+      defaultZone: http://localhost:8761/eureka

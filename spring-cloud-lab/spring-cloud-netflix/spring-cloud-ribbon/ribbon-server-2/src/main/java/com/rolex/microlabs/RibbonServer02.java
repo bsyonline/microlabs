@@ -18,9 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 @SpringBootApplication
 @RestController
 @Slf4j
-public class RibbonServer {
+public class RibbonServer02 {
     public static void main(String[] args) {
-        SpringApplication.run(RibbonServer.class, args);
+        SpringApplication.run(RibbonServer02.class, args);
     }
 
     @GetMapping("/ribbon")
