@@ -14,21 +14,23 @@ public class Test3 {
         Employee e = new Employee("123");
         System.out.println(e.empId);
     }
-}
 
-class Person {
-    String name = "no name";
+    static class Person {
+        String name = "no name";
 
-    public Person(String nm) {
-        name = nm;
+        public Person(String nm) {
+            name = nm;
+        }
+    }
+
+    static class Employee extends Person {
+        String empId = "0000";
+
+        public Employee(String id) {
+            super(id); // 如果没有这句会编译错误
+            empId = id;
+        }
     }
 }
 
-class Employee extends Person {
-    String empId = "0000";
 
-    public Employee(String id) {
-        super(id); // 如果没有这句会编译错误
-        empId = id;
-    }
-}
