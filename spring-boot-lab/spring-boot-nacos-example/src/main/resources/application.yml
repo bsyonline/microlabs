@@ -1,7 +1,33 @@
+# dev 配置
+spring:
+  profiles: dev
+nacos:
+  config:
+    namespace: af40020e-9c75-4174-be5b-796622544bae
+
+---
+#test 配置
+spring:
+  profiles: test
+nacos:
+  config:
+    namespace: 33d746ec-529e-472c-a6d1-302ee741e6cf
+
+---
+# prod 配置
+spring:
+  profiles: prod
+nacos:
+  config:
+    namespace: d8038098-05b5-4a9a-9d55-a274eecf1e3a
+
+---
+spring:
+  application:
+    name: spring-boot-nacos-example
 nacos:
   config:
     server-addr: 127.0.0.1:8848
-    ex
 management:
   endpoints:
     web:
@@ -11,5 +37,5 @@ management:
     health:
       show-details: always
 
-name: alice
-age: 20
+
+

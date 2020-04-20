@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author rolex
  * @since 2020
  */
-@NacosPropertySource(dataId = "application.yml", autoRefreshed = true)
+@NacosPropertySource(dataId = "spring-boot-nacos-example.yml", groupId = "spring-boot-nacos-example", autoRefreshed = true)
 @SpringBootApplication
 @RestController
 public class NacosApplication {
