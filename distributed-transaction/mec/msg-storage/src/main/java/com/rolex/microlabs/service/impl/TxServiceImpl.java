@@ -6,6 +6,7 @@ package com.rolex.microlabs.service.impl;
 import com.rolex.microlabs.dao.TxDao;
 import com.rolex.microlabs.model.TxMsg;
 import com.rolex.microlabs.service.TxService;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,7 @@ import java.util.Map;
  * @author rolex
  * @since 2020
  */
-@Component
+@Service(version = "1.0.0")
 public class TxServiceImpl implements TxService {
 
     private static final int MAX_RETRY = 3;
@@ -57,8 +58,9 @@ public class TxServiceImpl implements TxService {
         txMsg.setState(TxMsg.State.CONFIRM);
         txMsg.setUpdatedTime(new Date());
         txDao.update(txMsg);
-        rabbitTemplate.setDefaultReceiveQueue(txMsg.getQueue());
-        rabbitTemplate.convertAndSend(txMsg);
+//        rabbitTemplate.setDefaultReceiveQueue(txMsg.getQueue());
+//        rabbitTemplate.convertAndSend(txMsg);
+        rabbitTemplate.convertAndSend("multi-exchange", "multi-routingKey", txMsg);
     }
 
     @Override

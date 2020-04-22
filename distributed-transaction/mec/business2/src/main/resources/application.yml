@@ -1,0 +1,27 @@
+server:
+  port: 8081
+dubbo:
+  registry:
+    protocol: zookeeper
+    address: zookeeper://127.0.0.1:2181
+    port: 2181
+  protocol:
+    name: dubbo
+    port: 20890
+  application:
+    name: ${spring.application.name}
+spring:
+  application:
+    name: business2
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 3
+    template:
+      mandatory: true

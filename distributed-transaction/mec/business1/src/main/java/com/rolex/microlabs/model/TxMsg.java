@@ -6,6 +6,7 @@ package com.rolex.microlabs.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Date;
  */
 @Setter
 @Getter
-public class TxMsg {
+public class TxMsg implements Serializable {
     String id;          // 主键
     String msgId;       // 消息id
     String msgBody;     // 消息体

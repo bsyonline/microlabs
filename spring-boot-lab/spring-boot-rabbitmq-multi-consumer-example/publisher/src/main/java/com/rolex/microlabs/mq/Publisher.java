@@ -39,6 +39,14 @@ public class Publisher implements RabbitTemplate.ConfirmCallback, RabbitTemplate
             log.info("收到ACK,消息发送成功: {}", correlationData);
         } else {
             log.error("消息发送失败: {}", cause);
+            CorrelationDataWrapper messageCorrelationDataWrapper = (CorrelationDataWrapper) correlationData;
+            String exchange = messageCorrelationDataWrapper.getExchange();
+            Object message = messageCorrelationDataWrapper.getMessage();
+            String routingKey = messageCorrelationDataWrapper.getRoutingKey();
+            int retryCount = messageCorrelationDataWrapper.getRetryCount();
+            //重试次数+1
+            ((CorrelationDataWrapper) correlationData).setRetryCount(retryCount + 1);
+            rabbitTemplate.convertSendAndReceive(exchange, routingKey, message, correlationData);
         }
     }
 

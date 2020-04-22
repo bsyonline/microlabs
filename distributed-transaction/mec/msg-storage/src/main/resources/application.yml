@@ -1,0 +1,35 @@
+server:
+  port: 8088
+dubbo:
+  registry:
+    protocol: zookeeper
+    address: zookeeper://127.0.0.1:2181
+    port: 2181
+  protocol:
+    name: dubbo
+    port: 20890
+  scan:
+    base-packages: com.rolex.microlabs.service.impl
+  application:
+    name: ${spring.application.name}
+spring:
+  application:
+    name: message-management-system
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
+    listener:
+      simple:
+        acknowledge-mode: manual
+        default-requeue-rejected: false
+      direct:
+        acknowledge-mode: manual
+    publisher-confirms: true
+    publisher-returns: true
+    template:
+      mandatory: true
+      retry:
+        enabled: true
+        max-attempts: 3
