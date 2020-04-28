@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.UUID;
 
-import static com.rolex.microlabs.config.RabbitmqConfig.*;
+import static com.rolex.microlabs.config.RabbitConfig.*;
 
 /**
  * @author rolex
@@ -21,7 +21,7 @@ import static com.rolex.microlabs.config.RabbitmqConfig.*;
  */
 @Component
 @Slf4j
-public class Publisher implements RabbitTemplate.ConfirmCallback, RabbitTemplate.ReturnCallback {
+public class RabbitProducer implements RabbitTemplate.ConfirmCallback, RabbitTemplate.ReturnCallback {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
@@ -45,14 +45,14 @@ public class Publisher implements RabbitTemplate.ConfirmCallback, RabbitTemplate
     public void returnedMessage(Message message, int i, String s, String s1, String s2) {
         // confirm 只能保证消息到达broker，但是是否到达queue不能确定，所以需要记录return message
         // 如果消息没有投递到queue，消息会被退回
-        log.error("消费退回: {}", message.getMessageProperties().getCorrelationId());
+        log.error("消费退回: {}", message);
     }
 
-    public void sendDeadLetterMsg(String msg) {
+    public void sendMsg(String msg) {
         CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());
-        log.info("开始发送消息: {}", msg.toLowerCase());
-        rabbitTemplate.convertAndSend(HELLO_EXCHANGE, HELLO_ROUTING_KEY, msg, correlationId);
-        log.info("结束发送消息: {}", msg.toLowerCase());
+        log.info("开始发送消息: {}", msg);
+        rabbitTemplate.convertAndSend(DIRECT_EXCHANGE, DIRECT_ROUTING_KEY, msg, correlationId);
+        log.info("结束发送消息: {}", msg);
     }
 
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-import static com.rolex.microlabs.config.RabbitmqConfig.HELLO_QUEUE;
+import static com.rolex.microlabs.config.RabbitConfig.DIRECT_QUEUE;
 
 /**
  * @author rolex
@@ -22,10 +22,10 @@ import static com.rolex.microlabs.config.RabbitmqConfig.HELLO_QUEUE;
 public class DeadLetterReceiver {
     int count = 0;
 
-    @RabbitListener(queues = HELLO_QUEUE)
+    @RabbitListener(queues = DIRECT_QUEUE)
     public void processMessage(String msg, Channel channel, Message message) {
         count++;
-        log.info("{}接收到来自{}队列的消息：{}", Thread.currentThread().getName(), HELLO_QUEUE, msg);
+        log.info("{}接收到来自{}队列的消息：{}", Thread.currentThread().getName(), DIRECT_QUEUE, msg);
         try {
             if (count % 3 == 0) {
                 throw new RuntimeException("test exception");
