@@ -3,8 +3,8 @@
  */
 package com.rolex.microlabs.service;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author rolex
@@ -12,21 +12,41 @@ import java.util.Set;
  */
 public interface ListOpsService {
 
-    void add(String key, long index, String val);
+    String blpop(String key, long timeout);
 
-    Long lpush(String key, String val);
+    String brpop(String key, long timeout);
 
-    Long rpush(String key, String val);
+    String brpoplpush(String rkey, String lkey, long timeout);
 
-    String get(String key, long index);
+    String lindex(String key, long index);
 
-    Long remove(String key, long index, String val);
+    Long linsert(String key, String val);
+
+    Long llen(String key);
 
     String lpop(String key);
 
+    Long lpush(String key, String val);
+
+    Long lpush(String key, Collection<String> values);
+
+    Long lpushx(String key, String val);
+
+    List<String> lrange(String key, long start, long end);
+
+    Long lrem(String key, long count, String val);
+
+    void lset(String key, long index, String val);
+
+    void ltrim(String key, long start, long end);
+
     String rpop(String key);
 
-    List<String> list(String key, long start, long end);
+    String rpoplpush(String rkey, String lkey);
 
-    long size(String key);
+    Long rpush(String key, String val);
+
+    Long rpush(String key, Collection<String> values);
+
+    Long rpushx(String key, String val);
 }

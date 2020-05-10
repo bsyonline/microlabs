@@ -31,12 +31,12 @@ public class StringOpsServiceImplTest {
 
     @Test
     public void test01SetString() {
-        stringOpsService.setString("hello", "world");
-        String val = stringOpsService.getString("hello");
+        stringOpsService.set("hello", "world");
+        String val = stringOpsService.get("hello");
         TestCase.assertEquals("world", val);
-        TestCase.assertEquals(new Boolean(false), stringOpsService.setIfAbsent("hello", "redis", 10));
-        TestCase.assertEquals(new Boolean(true), stringOpsService.setIfAbsent("redis", "hello", 10));
-        TestCase.assertEquals(new Boolean(true), stringOpsService.setIfPresent("redis", "hello2", 10));
+        TestCase.assertEquals(new Boolean(false), stringOpsService.setnx("hello", "redis", 10));
+        TestCase.assertEquals(new Boolean(true), stringOpsService.setnx("redis", "hello", 10));
+        TestCase.assertEquals(new Boolean(true), stringOpsService.set("redis", "hello2", 10));
         stringOpsService.remove("hello", "redis");
     }
 
@@ -47,5 +47,16 @@ public class StringOpsServiceImplTest {
         TestCase.assertEquals(new Integer(1), val);
         TestCase.assertEquals(new Integer(10), stringOpsService.add("num", 9));
         stringOpsService.remove("num");
+    }
+
+    @Test
+    public void testIncr() {
+        String key = "article:readCount:1001";
+        //文章浏览量
+        for (int i = 0; i < 1000; i++) {
+            stringOpsService.incr(key);
+        }
+        Integer count = stringOpsService.getInt(key);
+        TestCase.assertEquals(1000, count.intValue());
     }
 }

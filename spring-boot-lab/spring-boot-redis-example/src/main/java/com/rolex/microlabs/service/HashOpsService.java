@@ -4,8 +4,11 @@
 package com.rolex.microlabs.service;
 
 
+import org.springframework.data.redis.core.Cursor;
+
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -14,14 +17,31 @@ import java.util.Set;
  */
 public interface HashOpsService {
 
+    void hset(String key, Object hashKey, Object val);
 
-    void set(String key, String hashKey, String val);
+    Object hget(String key, Object hashKey);
 
-    String get(String key, String hashKey);
+    Long hdel(String key, Object hashKey);
 
-    List multiGet(String key, Collection hashKeys);
+    Boolean hexists(String key, Object hashKey);
 
-    Set keys(String key);
+    Map hgetall(String key);
 
-    void remove(String key, Collection hashKeys);
+    Long hincrby(String key, Object hashKey, long val);
+
+    Double hincrbyfloat(String key, Object hashKey, double val);
+
+    Set hkeys(String key);
+
+    Long hlen(String key);
+
+    List hmget(String key, Collection hashKeys);
+
+    void hmset(String key, Map kvs);
+
+    Boolean hsetnx(String key, Object hashKey, Object val);
+
+    List hvals(String key);
+
+    Cursor<Map.Entry<Object, Object>> hscan(String key);
 }

@@ -1,7 +1,5 @@
 package com.rolex.microlabs.service.impl;
 
-import com.rolex.microlabs.service.StringOpsService;
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -32,20 +30,20 @@ public class SetOpsServiceImplTest {
 
     @Test
     public void test01Add() {
-        setOpsService.add("set1", "A", "B", "C");
-        Set<String> set1 = setOpsService.get("set1");
+        setOpsService.sadd("set1", "A", "B", "C");
+        Set<String> set1 = setOpsService.smembers("set1");
         set1.forEach(v -> System.out.print(v + " "));
-        setOpsService.remove("set1", "A", "B", "C");
+        setOpsService.srem("set1", "A", "B", "C");
     }
 
     @Test
     public void test02SetInt() {
-        setOpsService.add("set1", "A", "B", "C");
-        setOpsService.add("set2", "B", "C", "D");
-        System.out.println(Arrays.toString(setOpsService.difference("set1", "set2").toArray()));
-        System.out.println(Arrays.toString(setOpsService.union("set1", "set2").toArray()));
-        System.out.println(Arrays.toString(setOpsService.intersect("set1", "set2").toArray()));
-        setOpsService.remove("set1", "A", "B", "C");
-        setOpsService.remove("set2", "B", "C", "D");
+        setOpsService.sadd("set1", "A", "B", "C");
+        setOpsService.srem("set2", "B", "C", "D");
+        System.out.println(Arrays.toString(setOpsService.sdiff("set1", "set2").toArray()));
+        System.out.println(Arrays.toString(setOpsService.sunion("set1", "set2").toArray()));
+        System.out.println(Arrays.toString(setOpsService.sinter("set1", "set2").toArray()));
+        setOpsService.srem("set1", "A", "B", "C");
+        setOpsService.srem("set2", "B", "C", "D");
     }
 }

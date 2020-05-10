@@ -4,40 +4,69 @@
 package com.rolex.microlabs.service;
 
 
+import org.springframework.data.redis.connection.BitFieldSubCommands;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author rolex
  * @since 2020
  */
 public interface StringOpsService {
-    void setString(String key, String val);
+    Integer append(String key, String val);
 
-    String getString(String key);
+    Long bitcount(String key);
 
-    void setInt(String key, Integer val);
+    List<Long> bitop(String key, BitFieldSubCommands subCommands);
 
-    Integer getInt(String key);
+    Long decr(String key);
 
-    void remove(String... key);
+    Long decrby(String key, long value);
 
-    /**
-     * key对应的值是否等于val，不相等就set
-     *
-     * @param key
-     * @param val
-     * @param expire
-     * @return
-     */
-    Boolean setIfPresent(String key, String val, long expire);
+    String get(Object key);
 
-    /**
-     * key是否存在，不存在就set
-     *
-     * @param key
-     * @param val
-     * @param expire
-     * @return
-     */
-    Boolean setIfAbsent(String key, String val, long expire);
+    Boolean getbit(String key, long offset);
 
-    Integer add(String key, Integer val);
+    String getrange(String key, long start, long end);
+
+    String getset(String key, String value);
+
+    Long incr(String key);
+
+    Long incrby(String key, long val);
+
+    Double incrbyfloat(String key, double val);
+
+    List<String> mget(Collection keys);
+
+    void mset(Map<String, String> kv);
+
+    Boolean msetnx(Map<String, String> kv);
+
+    void psetex(String key, String value, long expire);
+
+    void set(String key, String value);
+
+    void set(String key, String value, long expire);
+
+    void set(String key, String value, long expire, TimeUnit timeUnit);
+
+    void set(String key, String value, long expire, TimeUnit timeUnit, SetOp op);
+
+    void set(String key, String value, SetOp op);
+
+    Boolean setbit(String key, long offset, boolean value);
+
+    void setex(String key, String value, long expire);
+
+    Boolean setnx(String key, String value);
+
+    Boolean setnx(String key, String value, long expire);
+
+    void setrange();
+
+    Long strlen(String key);
 }

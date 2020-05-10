@@ -29,18 +29,18 @@ public class ListOpsServiceImplTest {
         listOpsService.lpush("list1", "A");
         listOpsService.lpush("list1", "B");
         listOpsService.lpush("list1", "C");
-        System.out.println(Arrays.toString(listOpsService.list("list1", 0, 2).toArray()));
-        listOpsService.add("list1", 0, "a");
-        listOpsService.add("list1", 1, "b");
-        listOpsService.add("list1", 2, "c");
-        System.out.println(Arrays.toString(listOpsService.list("list1", 0, 2).toArray()));
+        System.out.println(Arrays.toString(listOpsService.lrange("list1", 0, 2).toArray()));
+        listOpsService.lset("list1", 0, "a");
+        listOpsService.lset("list1", 1, "b");
+        listOpsService.lset("list1", 2, "c");
+        System.out.println(Arrays.toString(listOpsService.lrange("list1", 0, 2).toArray()));
         listOpsService.rpush("list1", "X");
         listOpsService.rpush("list1", "Y");
         listOpsService.rpush("list1", "Z");
-        System.out.println(Arrays.toString(listOpsService.list("list1", 0, 5).toArray()));
+        System.out.println(Arrays.toString(listOpsService.lrange("list1", 0, 5).toArray()));
         System.out.println(listOpsService.lpop("list1"));
         System.out.println(listOpsService.rpop("list1"));
-        while (listOpsService.size("list1") > 0) {
+        while (listOpsService.llen("list1") > 0) {
             listOpsService.lpop("list1");
         }
 

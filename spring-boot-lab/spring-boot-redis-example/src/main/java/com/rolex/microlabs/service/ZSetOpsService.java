@@ -13,15 +13,37 @@ import java.util.Set;
  */
 public interface ZSetOpsService {
 
-    void add(String key, String val, double d);
+    Boolean zadd(String key, String val, double score);
 
-    void add(String key, Set<ZSetOperations.TypedTuple<String>> set);
+    Long zcard(String key);
 
-    Set<String> range(String key, long start, long end);
+    Long zcount(String key, double min, double max);
 
-    Long rank(String key, String val);
+    Double zincrby(String key, String val, double score);
 
-    Double score(String key1, String key2);
+    Set<ZSetOperations.TypedTuple<String>> zrange(String key, long start, long end);
 
-    Long remove(String key, String... vals);
+    Set<ZSetOperations.TypedTuple<String>> zrangebyscore(String key, double min, double max);
+
+    Long zrank(String key, Object val);
+
+    Long zrem(String key, String... values);
+
+    Long zremrangebyrank(String key, long start, long end);
+
+    Long zremrangebyscore(String key, double min, double max);
+
+    Set<String> zrevrange(String key, long start, long end);
+
+    Set<String> zrevrangebyscore(String key, double min, double max);
+
+    Long zrevrank(String key, String val);
+
+    Double zscore(String key, Object val);
+
+    Long zunionstore(String key, String key1, String key2);
+
+    Long zinterstore(String key, String key1, String key2);
+
+    void zscan(String key);
 }
