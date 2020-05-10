@@ -13,7 +13,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.UUID;
 
-import static com.rolex.microlabs.config.RabbitmqConfig.*;
+import static com.rolex.microlabs.config.RabbitConfig.DIRECT_EXCHANGE;
+import static com.rolex.microlabs.config.RabbitConfig.DIRECT_ROUTING_KEY;
 
 /**
  * @author rolex
@@ -21,7 +22,7 @@ import static com.rolex.microlabs.config.RabbitmqConfig.*;
  */
 @Component
 @Slf4j
-public class Publisher implements RabbitTemplate.ConfirmCallback, RabbitTemplate.ReturnCallback {
+public class RabbitProducer implements RabbitTemplate.ConfirmCallback, RabbitTemplate.ReturnCallback {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
@@ -51,7 +52,7 @@ public class Publisher implements RabbitTemplate.ConfirmCallback, RabbitTemplate
     public void sendDelayMsg(String msg) {
         CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());
         log.info("开始发送延时消息: {}", msg.toLowerCase());
-        rabbitTemplate.convertAndSend(WORLD_EXCHANGE, WORLD_ROUTING_KEY, msg, correlationId);
+        rabbitTemplate.convertAndSend(DIRECT_EXCHANGE, DIRECT_ROUTING_KEY, msg, correlationId);
         log.info("结束发送延时消息: {}", msg.toLowerCase());
     }
 }
