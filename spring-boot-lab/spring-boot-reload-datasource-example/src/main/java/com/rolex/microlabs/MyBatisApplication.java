@@ -3,7 +3,6 @@
  */
 package com.rolex.microlabs;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,10 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020
  */
 @SpringBootApplication
-@RestController
-@Slf4j
-public class MybatisApplication {
+public class MyBatisApplication {
     public static void main(String[] args) {
-        SpringApplication.run(MybatisApplication.class, args);
+        SpringApplication.run(MyBatisApplication.class, args);
     }
+
 }
