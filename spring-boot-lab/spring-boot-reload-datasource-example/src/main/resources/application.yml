@@ -1,7 +1,7 @@
 spring:
   datasource:
-    default:
-      name: default
+    ds1:
+      name: ds1
       driver-class-name: com.mysql.jdbc.Driver
       jdbc-url: jdbc:mysql://127.0.0.1:3306/db1?useUnicode=true&characterEncoding=utf8
       username: root
@@ -16,6 +16,12 @@ spring:
       name: ds3
       driver-class-name: com.mysql.jdbc.Driver
       jdbc-url: jdbc:mysql://127.0.0.1:3306/db3?useUnicode=true&characterEncoding=utf8
+      username: root
+      password: 123456
+    ds4:
+      name: ds4
+      driver-class-name: com.mysql.jdbc.Driver
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/db4?useUnicode=true&characterEncoding=utf8
       username: root
       password: 123456
 mybatis:

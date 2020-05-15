@@ -3,6 +3,7 @@
  */
 package com.rolex.microlabs.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.Map;
  * @author rolex
  * @since 2020
  */
+@Slf4j
 public class RoutingDataSource extends AbstractRoutingDataSource {
 
     private static RoutingDataSource instance;
@@ -20,6 +22,7 @@ public class RoutingDataSource extends AbstractRoutingDataSource {
 
     @Override
     public void setTargetDataSources(Map<Object, Object> targetDataSources) {
+        log.info("===============routingDataSource");
         super.setTargetDataSources(targetDataSources);
         dataSourceMap.putAll(targetDataSources);
         super.afterPropertiesSet();// 必须添加该句，否则新添加数据源无法识别到
@@ -42,6 +45,7 @@ public class RoutingDataSource extends AbstractRoutingDataSource {
 
     @Override
     protected Object determineCurrentLookupKey() {
+        log.info("===============LookupKey");
         return DataSourceContextHolder.get();
     }
 }

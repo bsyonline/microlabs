@@ -3,6 +3,7 @@
  */
 package com.rolex.microlabs.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 /**
@@ -10,6 +11,7 @@ import lombok.Data;
  * @since 2020
  */
 @Data
+@TableName("t_user")
 public class User {
     Long id;
     String name;

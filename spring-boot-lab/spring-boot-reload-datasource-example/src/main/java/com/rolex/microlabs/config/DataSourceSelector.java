@@ -38,7 +38,7 @@ public class DataSourceSelector {
      * @return
      */
     Map<String, Object> getArgsMap(JoinPoint joinPoint) {
-        Map<String, Object> param = new HashMap<>();
+        Map<String, Object> param = new HashMap<>(16);
 
         Object[] paramValues = joinPoint.getArgs();
         String[] paramNames = ((CodeSignature) joinPoint.getSignature()).getParameterNames();

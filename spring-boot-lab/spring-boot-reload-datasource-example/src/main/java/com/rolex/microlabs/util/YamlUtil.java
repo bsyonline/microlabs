@@ -9,8 +9,12 @@ import java.io.FileInputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author rolex
@@ -76,25 +80,32 @@ public class YamlUtil {
     }
 
     public static Map<String, Map<String, Object>> lookupByPrefix(String prefix) {
-        Map<String, Map<String, Object>> map = new ConcurrentHashMap<>();
-        for (Map.Entry<String, Object> kv : getApplicationYml().entrySet()) {
-            String key = kv.getKey();
-            if(key.startsWith(prefix)){
-                String subStr = key.replace(prefix,"");
-                int index = subStr.indexOf(".");
-                String name = subStr.substring(0, index);
-                Map<String, Object> m = new ConcurrentHashMap<>();
-                if(map.get(name)==null){
-                    m.put(subStr.substring(index+1), (String)kv.getValue());
-                    map.put(name, m);
-                }else{
-                    map.get(name).put(subStr.substring(index+1), kv.getValue());
-                }
-            }
-        }
-        for (Map.Entry<String, Map<String, Object>> kv : map.entrySet()) {
-            System.out.println(kv.getKey() + " - " + kv.getValue());
-        }
+        Map<String, Object> yaml = getApplicationYml();
+        Map<String, Map<String, Object>> map = yaml.entrySet()
+                .stream()
+                .filter(kv -> (kv.getKey()).startsWith(prefix)
+                        && "name".equals(kv.getKey().substring(kv.getKey().lastIndexOf(".") + 1)))
+                .collect(Collectors.toMap(
+                        l -> String.valueOf(l.getValue()),
+                        l -> new ConcurrentHashMap<String, Object>(16))
+                );
+        yaml.entrySet()
+                .stream()
+                .filter(kv -> kv.getKey().startsWith(prefix))
+                .collect(Collectors.toMap(kv -> kv.getKey(), kv -> kv.getValue()))
+                .entrySet()
+                .stream()
+                .collect(Collectors.groupingBy(kv -> kv.getKey().substring(0, kv.getKey().lastIndexOf("."))))
+                .entrySet()
+                .stream()
+                .collect(Collectors.toMap(
+                        k -> k.getKey(),
+                        v -> v.getValue()
+                                .stream()
+                                .collect(Collectors.toMap(
+                                        o -> o.getKey().substring(o.getKey().lastIndexOf(".") + 1),
+                                        o -> o.getValue())))
+                ).values().forEach(v -> map.get(v.get("name")).putAll(v));
         return map;
     }
 
