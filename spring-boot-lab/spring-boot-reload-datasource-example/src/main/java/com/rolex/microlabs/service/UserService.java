@@ -20,6 +20,6 @@ public class UserService {
     UserDao userDao;
 
     public List<User> findAll(){
-        return userDao.findAll();
+        return userDao.selectList(null);
     }
 }
