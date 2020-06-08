@@ -67,7 +67,7 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<Msg> impleme
         RpcResponse rpcResponse = (RpcResponse) SerializationUtils.deserialize(content, RpcResponse.class);
         log.info("收到响应：rpcResponse={}", rpcResponse);
         this.result = rpcResponse.getResult();
-        notify();
+        notifyAll();
     }
 
     public void setRpcRequest(RpcRequest rpcRequest) {
@@ -83,17 +83,13 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<Msg> impleme
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if (evt instanceof IdleStateEvent) {
-            log.info("心跳事件");
             IdleStateEvent e = (IdleStateEvent) evt;
             switch (e.state()) {
                 case READER_IDLE:
-                    log.info("read idle");
                     break;
                 case WRITER_IDLE:
-                    log.info("write idle");
                     break;
                 case ALL_IDLE:
-                    log.info("all idle, send heartbeat");
                     heartbeat(ctx);
                     break;
                 default:

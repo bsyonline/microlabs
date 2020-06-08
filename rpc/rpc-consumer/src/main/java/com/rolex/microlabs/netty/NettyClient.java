@@ -12,6 +12,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -33,28 +34,37 @@ public class NettyClient {
     private static ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     private static NettyClientHandler clientHandler;
     private static Bootstrap bootstrap;
+    private ChannelHandlerContext ctx;
 
-    public Object getInstance(final Class<?> c, final String serviceVersion) {
-        return Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
+    public <T> T create(final Class<?> c, final String serviceVersion) {
+        return (T) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
                 new Class<?>[]{c},
                 new InvocationHandler() {
                     @Override
                     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                        log.info("执行反射代码");
-                        if (clientHandler == null) {
-                            init();
+                        log.info("remote call");
+                        if (Object.class.equals(method.getDeclaringClass())) {
+                            return method.invoke(this, args);
                         }
-                        RpcRequest request = new RpcRequest();
-                        request.setRequestId(UUID.randomUUID().toString());
-                        request.setInterfaceName(method.getDeclaringClass().getName());
-                        request.setServiceVersion(serviceVersion);
-                        request.setMethodName(method.getName());
-                        request.setParameterTypes(method.getParameterTypes());
-                        request.setParameters(args);
-                        clientHandler.setRpcRequest(request);
-                        return executorService.submit(clientHandler).get();
+                        return rpcInvoke(method, args);
                     }
                 });
+    }
+
+    @SneakyThrows
+    private Object rpcInvoke(Method method, Object[] args) {
+        if (clientHandler == null) {
+            init();
+        }
+        RpcRequest request = new RpcRequest();
+        request.setRequestId(UUID.randomUUID().toString());
+        request.setInterfaceName(method.getDeclaringClass().getName());
+        request.setServiceVersion("v1.0");
+        request.setMethodName(method.getName());
+        request.setParameterTypes(method.getParameterTypes());
+        request.setParameters(args);
+        clientHandler.setRpcRequest(request);
+        return executorService.submit(clientHandler).get();
     }
 
     public static void init() {

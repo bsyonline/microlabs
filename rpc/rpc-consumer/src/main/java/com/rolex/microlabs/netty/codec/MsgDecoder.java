@@ -20,10 +20,10 @@ public class MsgDecoder extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        log.info("byte to msg");
         int length = in.readInt();
         byte[] content = new byte[length];
         in.readBytes(content);
         out.add(new Msg(length, content));
+        log.info("byte to msg: content={}", new String(content));
     }
 }

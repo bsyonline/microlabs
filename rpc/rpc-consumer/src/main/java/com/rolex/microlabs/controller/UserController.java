@@ -23,7 +23,7 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     public User getUser(@PathVariable(name = "id") int id) {
-        UserService userService = (UserService) nettyClient.getInstance(UserService.class, "v1.0");
+        UserService userService = (UserService) nettyClient.create(UserService.class, "v1.0");
         User user = userService.getUser(id);
         return user;
     }
