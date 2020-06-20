@@ -9,6 +9,7 @@
         <result column="age" property="age" />
         <result column="dept_id" property="deptId" />
         <result column="email" property="email" />
+        <result column="created_time" property="createdTime" />
     </resultMap>
 
     <resultMap id="EmployeeMap" type="com.rolex.microlabs.employee.service.bo.EmployeeBo">
@@ -22,6 +23,10 @@
     <select id="customPage" resultMap="EmployeeMap">
         select id, name, age, dept_name, email from t_employee e, t_dept d
         where e.dept_id = d.dept_id and name like CONCAT('%',#{employee.name},'%') and age>#{employee.age}
+    </select>
+
+    <select id="selectAll" resultType="com.rolex.microlabs.employee.entity.Employee">
+        select * from t_employee
     </select>
 
 </mapper>

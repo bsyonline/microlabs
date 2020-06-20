@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.rolex.microlabs.employee.service.bo.EmployeeBo;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -17,4 +19,6 @@ import org.apache.ibatis.annotations.Param;
 public interface EmployeeMapper extends BaseMapper<Employee> {
 
     Page<EmployeeBo> customPage(@Param("page") Page page,@Param("employee") Employee employee);
+
+    List<Employee> selectAll();
 }

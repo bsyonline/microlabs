@@ -2,6 +2,7 @@ package com.rolex.microlabs.employee.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import java.time.LocalDateTime;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,7 +21,6 @@ import lombok.EqualsAndHashCode;
 public class Employee extends Model<Employee> {
 
     private static final long serialVersionUID=1L;
-
     private Long id;
 
     private String name;
@@ -30,6 +30,8 @@ public class Employee extends Model<Employee> {
     private Long deptId;
 
     private String email;
+
+    private LocalDateTime createdTime;
 
 
     @Override
