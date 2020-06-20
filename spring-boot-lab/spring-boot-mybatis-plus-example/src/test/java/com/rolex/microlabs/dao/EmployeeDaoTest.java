@@ -3,18 +3,20 @@
  */
 package com.rolex.microlabs.dao;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.rolex.microlabs.model.Employee;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.rolex.microlabs.employee.entity.Employee;
+import com.rolex.microlabs.employee.mapper.EmployeeMapper;
+import com.rolex.microlabs.employee.service.IEmployeeService;
+import com.rolex.microlabs.employee.service.bo.EmployeeBo;
 import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.awt.*;
-import java.lang.annotation.ElementType;
+import javax.xml.ws.Service;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,32 +29,39 @@ import java.util.List;
 public class EmployeeDaoTest {
 
     @Autowired
+    IEmployeeService employeeService;
+    @Autowired
     EmployeeMapper employeeMapper;
 
     @Test
     public void insert() {
-        Arrays.asList("Adele", "Taylor", "John", "Paul", "Bill", "Tim", "Page", "Jobs", "Jeff")
-                .forEach(e -> {
+        List<Employee> list = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
             Employee employee = new Employee();
-            employee.setName(e);
-            employee.setAge(31);
-            employee.setEmail(e.toLowerCase()+"@gmail.com");
+            employee.setName("user" + i);
+            employee.setAge(i);
             employee.setDeptId(1259510564693286913L);
-            int insert = employeeMapper.insert(employee);
-        });
+            employee.setEmail("user" + i + "@gmail.com");
+            list.add(employee);
+        }
+        employeeService.saveBatch(list);
     }
 
     @Test
-    public void queryAll(){
-        List<Employee> employees = employeeMapper.selectList(null);
-        employees.stream().forEach(e-> System.out.println(e));
-        TestCase.assertEquals(9, employees.size());
+    public void page1() {
+        Page<Employee> page = new Page(3, 10);
+        Page page1 = employeeService.page(page);
+        System.out.println(page1.getRecords());
     }
 
     @Test
-    public void query1(){
-        List<Employee> employees = employeeMapper.selectList(null);
-        employees.stream().forEach(e-> System.out.println(e));
-        TestCase.assertEquals(9, employees.size());
+    public void page2() {
+        Page<Employee> page = new Page(3, 10);
+        Employee employee = new Employee();
+        employee.setName("user");
+        employee.setAge(30);
+        Page<EmployeeBo> employeeBoPage = employeeMapper.customPage(page, employee);
+        System.out.println(employeeBoPage.getRecords());
     }
+
 }

@@ -3,7 +3,6 @@
  */
 package com.rolex.microlabs.dao;
 
-import com.rolex.microlabs.model.Dept;
 import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,21 +21,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class DeptDaoTest {
 
-    @Autowired
-    DeptMapper deptMapper;
-
-    @Test
-    public void insert() {
-        AtomicInteger count = new AtomicInteger();
-        Arrays.asList("Sales","R&D","Market","QA").forEach(d->{
-            Dept dept = new Dept();
-            dept.setName(d);
-            int insert = deptMapper.insert(dept);
-            count.addAndGet(insert);
-        });
-
-        TestCase.assertEquals(4, count.get());
-    }
 
 
 }
