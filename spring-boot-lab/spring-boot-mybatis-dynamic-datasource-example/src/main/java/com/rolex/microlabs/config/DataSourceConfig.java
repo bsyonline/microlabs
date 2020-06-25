@@ -3,6 +3,9 @@
  */
 package com.rolex.microlabs.config;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,50 +13,51 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author rolex
  * @since 2020
  */
 @Configuration
+@Setter
+@Getter
+@Slf4j
+@ConfigurationProperties("spring.datasource")
 public class DataSourceConfig {
 
-    @Bean("dataSource1")
-    @Primary
-    @ConfigurationProperties("spring.datasource.ds1")
-    public DataSource dataSource1() {
-        return DataSourceBuilder.create().build();
-    }
-
-    @Bean("dataSource2")
-    @ConfigurationProperties("spring.datasource.ds2")
-    public DataSource dataSource2() {
-        return DataSourceBuilder.create().build();
-    }
-
-    @Bean("dataSource3")
-    @ConfigurationProperties("spring.datasource.ds3")
-    public DataSource dataSource3() {
-        return DataSourceBuilder.create().build();
-    }
+    private Map<String, String> map = new HashMap<>();
 
     @Bean
-    public RoutingDataSource routingDataSource(@Qualifier("dataSource1") DataSource dataSource1,
-                                               @Qualifier("dataSource2") DataSource dataSource2,
-                                               @Qualifier("dataSource3") DataSource dataSource3) {
-        Map<Object, Object> targetDataSources = new HashMap<>();
-        targetDataSources.put(DataSourceType.DS1, dataSource1);
-        targetDataSources.put(DataSourceType.DS2, dataSource2);
-        targetDataSources.put(DataSourceType.DS3, dataSource3);
+    public RoutingDataSource routingDataSource() {
+        Map<Object, Object> targetDataSources = new HashMap<>(16);
+        Map<String, Map<String, String>> map = lookupDataSource();
+        if (map != null) {
+            Set<String> keySet = map.keySet();
+            for (String key : keySet) {
+                Map<String, String> dsMap = map.get(key);
+                String url = dsMap.get("jdbc-url");
+                String username = dsMap.get("username");
+                String password = dsMap.get("password");
+                String driver = dsMap.get("driver-class-name");
+                DataSource dataSource = DataSourceBuilder.create()
+                        .url(url)
+                        .username(username)
+                        .password(password)
+                        .driverClassName(driver)
+                        .build();
+                targetDataSources.put(dsMap.get("name").toLowerCase(), dataSource);
+            }
+        }
+        log.info("载入数据源{}个：{}", map.size(), map);
         RoutingDataSource routingDataSource = new RoutingDataSource();
-        routingDataSource.setDefaultTargetDataSource(dataSource1);
+        routingDataSource.setDefaultTargetDataSource(targetDataSources.get("ds1"));
         routingDataSource.setTargetDataSources(targetDataSources);
         return routingDataSource;
     }
@@ -70,10 +74,23 @@ public class DataSourceConfig {
 
     }
 
-
     @Bean
     public DataSourceTransactionManager transactionManager(@Qualifier("routingDataSource") DataSource dynamicDataSource) {
         return new DataSourceTransactionManager(dynamicDataSource);
     }
 
+    public Map<String, Map<String, String>> lookupDataSource() {
+        Map<String, Map<String, String>> dsMap = new HashMap<>();
+        for (Map.Entry<String, String> kv : map.entrySet()) {
+            String key = kv.getKey().split("\\.")[0];
+            if (dsMap.get(key) == null) {
+                Map<String, String> dsMap1 = new HashMap<>();
+                dsMap1.put(kv.getKey().split("\\.")[1], kv.getValue());
+                dsMap.put(key, dsMap1);
+            } else {
+                dsMap.get(key).put(kv.getKey().split("\\.")[1], kv.getValue());
+            }
+        }
+        return dsMap;
+    }
 }
