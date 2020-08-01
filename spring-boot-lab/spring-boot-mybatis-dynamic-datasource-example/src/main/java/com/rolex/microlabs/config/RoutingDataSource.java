@@ -3,9 +3,13 @@
  */
 package com.rolex.microlabs.config;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
+import org.springframework.util.Assert;
 
+import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,6 +50,15 @@ public class RoutingDataSource extends AbstractRoutingDataSource {
     @Override
     protected Object determineCurrentLookupKey() {
         log.info("===============LookupKey");
-        return DataSourceContextHolder.get();
+        return DataSourceContextHolder.get().name().toLowerCase();
+    }
+
+    @Override
+    protected javax.sql.DataSource determineTargetDataSource() {
+        Object lookupKey = determineCurrentLookupKey();
+        DataSource dataSource = (DataSource) dataSourceMap.get(lookupKey);
+        DruidDataSource druidDataSource = (DruidDataSource) dataSource;
+        log.info("{}", druidDataSource.getUrl());
+        return dataSource;
     }
 }

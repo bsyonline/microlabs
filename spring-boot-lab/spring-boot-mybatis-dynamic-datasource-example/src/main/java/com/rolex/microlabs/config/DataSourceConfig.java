@@ -3,6 +3,7 @@
  */
 package com.rolex.microlabs.config;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -35,7 +37,7 @@ public class DataSourceConfig {
     private Map<String, String> map = new HashMap<>();
 
     @Bean
-    public RoutingDataSource routingDataSource() {
+    public RoutingDataSource routingDataSource() throws SQLException {
         Map<Object, Object> targetDataSources = new HashMap<>(16);
         Map<String, Map<String, String>> map = lookupDataSource();
         if (map != null) {
@@ -46,13 +48,13 @@ public class DataSourceConfig {
                 String username = dsMap.get("username");
                 String password = dsMap.get("password");
                 String driver = dsMap.get("driver-class-name");
-                DataSource dataSource = DataSourceBuilder.create()
-                        .url(url)
-                        .username(username)
-                        .password(password)
-                        .driverClassName(driver)
-                        .build();
-                targetDataSources.put(dsMap.get("name").toLowerCase(), dataSource);
+                DruidDataSource druidDataSource = new DruidDataSource();
+                druidDataSource .setUrl(url);
+                druidDataSource.setUsername(username);
+                druidDataSource.setPassword(password);
+                druidDataSource.setDriverClassName(driver);
+                druidDataSource.init();
+                targetDataSources.put(dsMap.get("name").toLowerCase(), druidDataSource);
             }
         }
         log.info("载入数据源{}个：{}", map.size(), map);
