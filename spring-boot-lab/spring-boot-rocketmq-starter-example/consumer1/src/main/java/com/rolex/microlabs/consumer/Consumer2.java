@@ -5,10 +5,13 @@ package com.rolex.microlabs.consumer;
 
 import com.rolex.microlabs.model.OrderPaidEvent;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
+import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.spring.annotation.ConsumeMode;
 import org.apache.rocketmq.spring.annotation.MessageModel;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
+import org.apache.rocketmq.spring.core.RocketMQPushConsumerLifecycleListener;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,11 +22,16 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @RocketMQMessageListener(topic = "test-topic-2", consumerGroup = "group2",
         messageModel = MessageModel.BROADCASTING,consumeMode = ConsumeMode.CONCURRENTLY)
-public class Consumer2 implements RocketMQListener<OrderPaidEvent> {
+public class Consumer2 implements RocketMQListener<MessageExt>, RocketMQPushConsumerLifecycleListener {
+
+
     @Override
-    public void onMessage(OrderPaidEvent orderPaidEvent) {
+    public void onMessage(MessageExt messageExt) {
         log.info("received orderPaidEvent: {}", orderPaidEvent);
     }
 
+    @Override
+    public void prepareStart(DefaultMQPushConsumer defaultMQPushConsumer) {
 
+    }
 }

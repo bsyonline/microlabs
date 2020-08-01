@@ -20,11 +20,5 @@ public class RocketApplication {
         SpringApplication.run(RocketApplication.class, args);
     }
 
-    @Autowired
-    Producer producer;
 
-    @GetMapping("/test")
-    public void test(){
-        producer.send();
-    }
 }
