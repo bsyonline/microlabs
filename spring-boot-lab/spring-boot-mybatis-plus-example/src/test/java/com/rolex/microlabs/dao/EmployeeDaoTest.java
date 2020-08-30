@@ -219,4 +219,21 @@ public class EmployeeDaoTest {
     public void query13(){
         List<Employee> employees = employeeMapper.selectAll();
     }
+
+    @Test
+    public void query14(){
+        List<Employee> userList = new LambdaQueryChainWrapper<>(employeeMapper)
+                .apply("name = email")
+                .eq(Employee::getName,"Adele")
+                .list();
+        userList.forEach(System.out::println);
+    }
+
+    @Test
+    public void query15(){
+        Employee employee = new Employee();
+        employee.setName("aaa");
+        employeeMapper.insert(employee);
+        System.out.println(employee.getId());
+    }
 }

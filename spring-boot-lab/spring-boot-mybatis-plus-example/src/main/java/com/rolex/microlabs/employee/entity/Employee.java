@@ -31,9 +31,6 @@ public class Employee extends Model<Employee> {
 
     private String email;
 
-    private LocalDateTime createdTime;
-
-
     @Override
     protected Serializable pkVal() {
         return this.id;
