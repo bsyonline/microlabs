@@ -15,7 +15,7 @@ object SourceTest {
 
     val env = StreamExecutionEnvironment.getExecutionEnvironment
 
-    val stream1 = env.fromCollection(List(
+    val stream1: DataStream[Sensor] = env.fromCollection(List(
       Sensor(1, 1547756886, 37.5),
       Sensor(2, 1547756887, 37.5),
       Sensor(3, 1547756888, 37.5),
@@ -23,11 +23,21 @@ object SourceTest {
     ))
     stream1.print("stream1").setParallelism(3)
 
-    val stream2 = env.fromElements(1, "tom", 20L)
+    val stream2: DataStream[_] = env.fromElements(1, "tom", 20L)
     stream2.print("stream2")
 
-    val stream3 = env.readTextFile("src/main/resources/sensor.txt")
+    val stream3: DataStream[String] = env.readTextFile("src/main/resources/sensor.txt")
     stream3.print("stream3")
+
+    env.generateSequence(0, 10).iterate(
+      it => {
+        val minusOne = it.map(v => v - 1)
+        val stillGreaterThanZero = minusOne.filter(_ > 0)
+        val lessThanZero = minusOne.filter(_ <= 0)
+        (stillGreaterThanZero, lessThanZero)
+      }
+    ).print("stream4")
+
 
     /**
      * kafka
