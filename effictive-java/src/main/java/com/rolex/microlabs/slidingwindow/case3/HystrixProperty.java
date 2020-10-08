@@ -1,12 +1,15 @@
+/*
 package com.rolex.microlabs.slidingwindow.case3;
 
 public interface HystrixProperty<T> {
 
     public T get();
 
-    /**
+    */
+/**
      * Helper methods for wrapping static values and dynamic Archaius (https://github.com/Netflix/archaius) properties in the {@link HystrixProperty} interface.
-     */
+     *//*
+
     public static class Factory {
 
         public static <T> HystrixProperty<T> asProperty(final T value) {
@@ -20,9 +23,11 @@ public interface HystrixProperty<T> {
             };
         }
 
-        /**
+        */
+/**
          * @ExcludeFromJavadoc
-         */
+         *//*
+
         public static HystrixProperty<Integer> asProperty(final HystrixPropertiesChainedArchaiusProperty.DynamicIntegerProperty value) {
             return new HystrixProperty<Integer>() {
 
@@ -34,9 +39,11 @@ public interface HystrixProperty<T> {
             };
         }
 
-        /**
+        */
+/**
          * @ExcludeFromJavadoc
-         */
+         *//*
+
         public static HystrixProperty<Long> asProperty(final HystrixPropertiesChainedArchaiusProperty.DynamicLongProperty value) {
             return new HystrixProperty<Long>() {
 
@@ -48,9 +55,11 @@ public interface HystrixProperty<T> {
             };
         }
 
-        /**
+        */
+/**
          * @ExcludeFromJavadoc
-         */
+         *//*
+
         public static HystrixProperty<String> asProperty(final HystrixPropertiesChainedArchaiusProperty.DynamicStringProperty value) {
             return new HystrixProperty<String>() {
 
@@ -62,9 +71,11 @@ public interface HystrixProperty<T> {
             };
         }
 
-        /**
+        */
+/**
          * @ExcludeFromJavadoc
-         */
+         *//*
+
         public static HystrixProperty<Boolean> asProperty(final HystrixPropertiesChainedArchaiusProperty.DynamicBooleanProperty value) {
             return new HystrixProperty<Boolean>() {
 
@@ -76,7 +87,8 @@ public interface HystrixProperty<T> {
             };
         }
 
-        /**
+        */
+/**
          * When retrieved this will return the value from the given {@link HystrixProperty} or if that returns null then return the <code>defaultValue</code>.
          * 
          * @param value
@@ -84,7 +96,8 @@ public interface HystrixProperty<T> {
          * @param defaultValue
          *            value to be returned if value returns null
          * @return value or defaultValue if value returns null
-         */
+         *//*
+
         public static <T> HystrixProperty<T> asProperty(final HystrixProperty<T> value, final T defaultValue) {
             return new HystrixProperty<T>() {
 
@@ -101,12 +114,14 @@ public interface HystrixProperty<T> {
             };
         }
 
-        /**
+        */
+/**
          * When retrieved this will iterate over the contained {@link HystrixProperty} instances until a non-null value is found and return that.
          * 
          * @param values properties to iterate over
          * @return first non-null value or null if none found
-         */
+         *//*
+
         public static <T> HystrixProperty<T> asProperty(final HystrixProperty<T>... values) {
             return new HystrixProperty<T>() {
 
@@ -124,9 +139,11 @@ public interface HystrixProperty<T> {
             };
         }
 
-        /**
+        */
+/**
          * @ExcludeFromJavadoc
-         */
+         *//*
+
         public static <T> HystrixProperty<T> asProperty(final HystrixPropertiesChainedArchaiusProperty.ChainLink<T> chainedProperty) {
             return new HystrixProperty<T>() {
 
@@ -151,4 +168,4 @@ public interface HystrixProperty<T> {
 
     }
 
-}
+}*/

@@ -1,3 +1,4 @@
+/*
 package com.rolex.microlabs.slidingwindow.case3;
 
 import org.slf4j.Logger;
@@ -10,42 +11,54 @@ import java.util.concurrent.atomic.AtomicReference;
 public abstract class HystrixPropertiesChainedArchaiusProperty {
     private static final Logger logger = LoggerFactory.getLogger(HystrixPropertiesChainedArchaiusProperty.class);
 
-    /**
+    */
+/**
      * @ExcludeFromJavadoc
-     */
+     *//*
+
     public static abstract class ChainLink<T> {
 
         private final AtomicReference<ChainLink<T>> pReference;
         private final ChainLink<T> next;
         private final List<Runnable> callbacks;
 
-        /**
+        */
+/**
          * @return String
-         */
+         *//*
+
         public abstract String getName();
 
-        /**
+        */
+/**
          * @return T
-         */
+         *//*
+
         protected abstract T getValue();
 
-        /**
+        */
+/**
          * @return Boolean
-         */
+         *//*
+
         public abstract boolean isValueAcceptable();
 
-        /**
+        */
+/**
          * No arg constructor - used for end node
-         */
+         *//*
+
         public ChainLink() {
             next = null;
             pReference = new AtomicReference<ChainLink<T>>(this);
             callbacks = new ArrayList<Runnable>();
         }
 
-        /**
+        */
+/**
          * @param nextProperty next property in the chain
-         */
+         *//*
+
         public ChainLink(ChainLink<T> nextProperty) {
             next = nextProperty;
             pReference = new AtomicReference<ChainLink<T>>(next);
@@ -72,9 +85,11 @@ public abstract class HystrixPropertiesChainedArchaiusProperty {
             }
         }
 
-        /**
+        */
+/**
          * @return T
-         */
+         *//*
+
         public T get() {
             if (pReference.get() == this) {
                 return this.getValue();
@@ -83,25 +98,31 @@ public abstract class HystrixPropertiesChainedArchaiusProperty {
             }
         }
 
-        /**
+        */
+/**
          * @param r callback to execut
-         */
+         *//*
+
         public void addCallback(Runnable r) {
             callbacks.add(r);
         }
 
-        /**
+        */
+/**
          * @return String
-         */
+         *//*
+
         @Override
         public String toString() {
             return getName() + " = " + get();
         }
     }
 
-    /**
+    */
+/**
      * @ExcludeFromJavadoc
-     */
+     *//*
+
     public static class StringProperty extends ChainLink<String> {
 
         private final DynamicStringProperty sProp;
@@ -153,9 +174,11 @@ public abstract class HystrixPropertiesChainedArchaiusProperty {
         }
     }
 
-    /**
+    */
+/**
      * @ExcludeFromJavadoc
-     */
+     *//*
+
     public static class IntegerProperty extends ChainLink<Integer> {
 
         private final DynamicIntegerProperty sProp;
@@ -207,9 +230,11 @@ public abstract class HystrixPropertiesChainedArchaiusProperty {
         }
     }
 
-    /**
+    */
+/**
      * @ExcludeFromJavadoc
-     */
+     *//*
+
     public static class BooleanProperty extends ChainLink<Boolean> {
 
         private final DynamicBooleanProperty sProp;
@@ -261,17 +286,21 @@ public abstract class HystrixPropertiesChainedArchaiusProperty {
         }
     }
 
-    /**
+    */
+/**
      * @ExcludeFromJavadoc
-     */
+     *//*
+
     public static class DynamicBooleanProperty extends PropertyWrapper<Boolean> {
         public DynamicBooleanProperty(String propName, Boolean defaultValue) {
             super(propName, defaultValue);
         }
 
-        /**
+        */
+/**
          * Get the current value from the underlying DynamicProperty
-         */
+         *//*
+
         public Boolean get() {
             return prop.getBoolean(defaultValue);
         }
@@ -282,17 +311,21 @@ public abstract class HystrixPropertiesChainedArchaiusProperty {
         }
     }
 
-    /**
+    */
+/**
      * @ExcludeFromJavadoc
-     */
+     *//*
+
     public static class DynamicIntegerProperty extends PropertyWrapper<Integer> {
         public DynamicIntegerProperty(String propName, Integer defaultValue) {
             super(propName, defaultValue);
         }
 
-        /**
+        */
+/**
          * Get the current value from the underlying DynamicProperty
-         */
+         *//*
+
         public Integer get() {
             return prop.getInteger(defaultValue);
         }
@@ -303,17 +336,21 @@ public abstract class HystrixPropertiesChainedArchaiusProperty {
         }
     }
 
-    /**
+    */
+/**
      * @ExcludeFromJavadoc
-     */
+     *//*
+
     public static class DynamicLongProperty extends PropertyWrapper<Long> {
         public DynamicLongProperty(String propName, Long defaultValue) {
             super(propName, defaultValue);
         }
 
-        /**
+        */
+/**
          * Get the current value from the underlying DynamicProperty
-         */
+         *//*
+
         public Long get() {
             return prop.getLong(defaultValue);
         }
@@ -324,17 +361,21 @@ public abstract class HystrixPropertiesChainedArchaiusProperty {
         }
     }
 
-    /**
+    */
+/**
      * @ExcludeFromJavadoc
-     */
+     *//*
+
     public static class DynamicStringProperty extends PropertyWrapper<String> {
         public DynamicStringProperty(String propName, String defaultValue) {
             super(propName, defaultValue);
         }
 
-        /**
+        */
+/**
          * Get the current value from the underlying DynamicProperty
-         */
+         *//*
+
         public String get() {
             return prop.getString(defaultValue);
         }
@@ -345,4 +386,4 @@ public abstract class HystrixPropertiesChainedArchaiusProperty {
         }
     }
 
-}
+}*/
