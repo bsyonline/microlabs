@@ -43,7 +43,6 @@ public class MapOutputFormat {
         for (int i = 0; i < partitions; i++) {
             String tmpPath = path + File.separator + PathUtil.genMapOutputTmpFileName(i) + ".txt";
             tmpPath = PathUtil.checkPath(tmpPath);
-
             PrintWriter printWriter = new PrintWriter(new FileOutputStream(tmpPath));
             writers.add(printWriter);
         }
@@ -56,5 +55,13 @@ public class MapOutputFormat {
         this.recordsList = new ArrayList<>(partitionNum);
         recordsList.add(new ArrayList<>());
         this.sort = context.getSort().newInstance();
+    }
+
+    public void write(String word, int i) {
+
+    }
+
+    public void close() {
+
     }
 }

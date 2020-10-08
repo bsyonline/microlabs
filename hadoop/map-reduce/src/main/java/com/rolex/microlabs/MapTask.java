@@ -20,7 +20,7 @@ public class MapTask {
         String tmpPath = context.getConfig("map-reduce.path");
         MapOutputFormat mapOutputFormat = new MapOutputFormat(tmpPath, context, taskId);
         Mapper mapper = context.getMapper().newInstance();
-        mapper.run(mapInputFormat,mapOutputFormat);
+        mapper.run(mapInputFormat, mapOutputFormat);
 
     }
 
