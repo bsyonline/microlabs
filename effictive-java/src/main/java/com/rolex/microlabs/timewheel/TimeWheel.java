@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class TimeWheel {
     WheelBucket[] wheel;
     private final AtomicBoolean stop = new AtomicBoolean(false);
-    Queue<Job> taskQueue = new LinkedBlockingQueue();
+    Queue<Integer> taskQueue = new LinkedBlockingQueue();
 
     public TimeWheel(int bucketSize) throws InterruptedException {
         wheel = new WheelBucket[bucketSize];
@@ -28,10 +28,10 @@ public class TimeWheel {
         new Thread(() -> {
             while (!stop.get()) {
                 try {
-                    Job job = taskQueue.poll();
+                    Integer job = taskQueue.poll();
                     if(job!=null) {
                         System.out.println(job);
-                        long offset = job.createTime - startTime;
+                        long offset = System.currentTimeMillis() - startTime;
                         long ticks = offset % 10;
                         wheel[(int) ticks].task.add(job);
                     }
@@ -47,22 +47,22 @@ public class TimeWheel {
 
     public void show() {
         for (WheelBucket wheelBucket : wheel) {
-            System.out.print("[" + wheelBucket.toString() + "],");
+            System.out.println("[" + wheelBucket.toString() + "],");
         }
         System.out.println();
     }
 
-    public void createJob(Job job) {
+    public void createJob(Integer job) {
         taskQueue.add(job);
     }
 
     class WheelBucket {
-        List<Job> task = new ArrayList();
+        List<Integer> task = new ArrayList();
 
         @Override
         public String toString() {
             StringBuffer sb = new StringBuffer();
-            for (Job job : task) {
+            for (Integer job : task) {
                 sb.append(job).append(",");
             }
             return sb.toString();
@@ -72,7 +72,7 @@ public class TimeWheel {
     public static void main(String[] args) throws InterruptedException {
         TimeWheel timeWheel = new TimeWheel(10);
         for (int i = 1; i < 51; i++) {
-            timeWheel.createJob(new Job(i, "task-" + i, System.currentTimeMillis()));
+            timeWheel.createJob(i);
             System.out.println(i);
         }
         TimeUnit.SECONDS.sleep(15);

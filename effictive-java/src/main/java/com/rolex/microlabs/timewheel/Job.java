@@ -16,4 +16,11 @@ public class Job {
     long id;
     String name;
     long createTime;
+
+    @Override
+    public String toString() {
+        return "Job{" +
+                "id=" + id +
+                '}';
+    }
 }
