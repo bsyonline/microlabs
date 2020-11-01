@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2020 bsyonline
  */
-package com.rolex.microlabs.asm;
+package com.rolex.microlabs.asm06;
 
 /**
  * @author rolex

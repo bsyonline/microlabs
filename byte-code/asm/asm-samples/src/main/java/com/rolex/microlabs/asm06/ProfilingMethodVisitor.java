@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2020 bsyonline
  */
-package com.rolex.microlabs.asm;
+package com.rolex.microlabs.asm06;
 
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.commons.AdviceAdapter;

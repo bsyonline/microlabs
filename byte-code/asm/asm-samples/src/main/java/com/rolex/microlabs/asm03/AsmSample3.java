@@ -1,13 +1,9 @@
 /*
  * Copyright (C) 2020 bsyonline
  */
-package com.rolex.microlabs.asm;
+package com.rolex.microlabs.asm03;
 
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassVisitor;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.*;
 import org.objectweb.asm.commons.AdviceAdapter;
 
 import java.io.File;
@@ -22,9 +18,9 @@ import static org.objectweb.asm.Opcodes.ASM5;
  * @author rolex
  * @since 2020
  */
-public class AsmSample5 extends ClassLoader {
+public class AsmSample3 extends ClassLoader {
     public static void main(String[] args) throws IOException, NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
-        ClassReader cr = new ClassReader(MyMethod.class.getName());
+        ClassReader cr = new ClassReader(User.class.getName());
         ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_MAXS);
         {
             MethodVisitor methodVisitor = cw.visitMethod(Opcodes.ACC_PUBLIC, "<init>", "()V", null, null);
@@ -34,13 +30,13 @@ public class AsmSample5 extends ClassLoader {
             methodVisitor.visitMaxs(1, 1);
             methodVisitor.visitEnd();
         }
-        ClassVisitor cv = new ProfilingClassAdapter(cw, MyMethod.class.getSimpleName());
+        ClassVisitor cv = new ProfilingClassAdapter(cw, User.class.getSimpleName());
         cr.accept(cv, ClassReader.EXPAND_FRAMES);
         byte[] bytes = cw.toByteArray();
         outputClazz(bytes);
-        Class<?> clazz = new AsmSample5().defineClass("com.rolex.microlabs.asm.MyMethod", bytes, 0, bytes.length);
-        Method sum = clazz.getMethod("sum", int.class, int.class);
-        Object obj = sum.invoke(clazz.newInstance(), 20, 5);
+        Class<?> clazz = new AsmSample3().defineClass("com.rolex.microlabs.asm03.User", bytes, 0, bytes.length);
+        Method queryUserInfo = clazz.getMethod("queryById", String.class);
+        Object obj = queryUserInfo.invoke(clazz.newInstance(), "10001");
         System.out.println("测试结果：" + obj);
     }
 
@@ -54,7 +50,7 @@ public class AsmSample5 extends ClassLoader {
             System.out.println("access：" + access);
             System.out.println("name：" + name);
             System.out.println("desc：" + desc);
-            if (!"sum".equals(name)) {
+            if (!"queryById".equals(name)) {
                 return null;
             }
             MethodVisitor mv = cv.visitMethod(access, name, desc, signature, exceptions);
@@ -72,23 +68,27 @@ public class AsmSample5 extends ClassLoader {
 
         @Override
         protected void onMethodEnter() {
-            // 输出方法和参数
-            mv.visitLdcInsn(methodName);
-            mv.visitInsn(ICONST_2);
-            mv.visitIntInsn(NEWARRAY, T_INT);
-            mv.visitInsn(DUP);
-            mv.visitInsn(ICONST_0);
-            mv.visitVarInsn(ILOAD, 1);
-            mv.visitInsn(IASTORE);
-            mv.visitInsn(DUP);
-            mv.visitInsn(ICONST_1);
-            mv.visitVarInsn(ILOAD, 2);
-            mv.visitInsn(IASTORE);
-            mv.visitMethodInsn(INVOKESTATIC, "com/rolex/microlabs/asm/MonitorLog", "info", "(Ljava/lang/String;[I)V", false);
+            mv.visitMethodInsn(INVOKESTATIC, "java/lang/System", "nanoTime", "()J", false);
+            mv.visitVarInsn(LSTORE, 2);
+            mv.visitVarInsn(ALOAD, 1);
         }
 
         @Override
         protected void onMethodExit(int opcode) {
+            if ((IRETURN <= opcode && opcode <= RETURN) || opcode == ATHROW) {
+                mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
+                mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
+                mv.visitInsn(DUP);
+                mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
+                mv.visitLdcInsn("方法执行耗时(纳秒)->" + methodName + "：");
+                mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+                mv.visitMethodInsn(INVOKESTATIC, "java/lang/System", "nanoTime", "()J", false);
+                mv.visitVarInsn(LLOAD, 2);
+                mv.visitInsn(LSUB);
+                mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(J)Ljava/lang/StringBuilder;", false);
+                mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
+                mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
+            }
         }
     }
 
@@ -96,7 +96,7 @@ public class AsmSample5 extends ClassLoader {
         // 输出类字节码
         FileOutputStream out = null;
         try {
-            String pathName = AsmSample1.class.getResource("/").getPath() + "AsmSumOfTwoNumbers.class";
+            String pathName = AsmSample3.class.getResource("/").getPath() + "AsmUser.class";
             out = new FileOutputStream(new File(pathName));
             System.out.println("ASM类输出路径：" + pathName);
             out.write(bytes);

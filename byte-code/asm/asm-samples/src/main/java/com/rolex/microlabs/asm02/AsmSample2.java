@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2020 bsyonline
  */
-package com.rolex.microlabs.asm;
+package com.rolex.microlabs.asm02;
 
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
@@ -18,6 +18,41 @@ import java.lang.reflect.Method;
  */
 public class AsmSample2 extends ClassLoader {
 
+    public static void main(String[] args) throws Exception {
+        // 生成二进制字节码
+        byte[] bytes = generate();
+        // 输出字节码
+        outputClazz(bytes);
+        // 加载AsmSumOfTwoNumbers
+        AsmSample2 asmSample2 = new AsmSample2();
+        Class<?> clazz = asmSample2.defineClass("com.rolex.microlabs.asm02.AsmSumOfTwoNumbers", bytes, 0, bytes.length);
+        // 反射获取 main 方法
+        Method method = clazz.getMethod("sum", int.class, int.class);
+        Object obj = method.invoke(clazz.newInstance(), 6, 2);
+        System.out.println(obj);
+    }
+
+    private static void outputClazz(byte[] bytes) {
+        // 输出类字节码
+        FileOutputStream out = null;
+        try {
+            String pathName = AsmSample2.class.getResource("/").getPath() + "AsmSumOfTwoNumbers.class";
+            out = new FileOutputStream(new File(pathName));
+            System.out.println("ASM类输出路径：" + pathName);
+            out.write(bytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (null != out) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     private static byte[] generate() {
         ClassWriter classWriter = new ClassWriter(0);
         {
@@ -31,7 +66,7 @@ public class AsmSample2 extends ClassLoader {
         { // 定义对象头；版本号、修饰符、全类名、签名、父类、实现的接口
             classWriter.visit(Opcodes.V1_8,
                     Opcodes.ACC_PUBLIC,
-                    "com/rolex/microlabs/asm/AsmSumOfTwoNumbers",
+                    "com/rolex/microlabs/asm02/AsmSumOfTwoNumbers",
                     null,
                     "java/lang/Object",
                     null);
@@ -54,49 +89,5 @@ public class AsmSample2 extends ClassLoader {
         classWriter.visitEnd();
         // 生成字节数组
         return classWriter.toByteArray();
-    }
-
-    public static void main(String[] args) throws Exception {
-        // 生成二进制字节码
-        byte[] bytes = generate();
-        // 输出字节码
-        outputClazz(bytes);
-        // 加载AsmSumOfTwoNumbers
-        AsmSample2 generateSumOfTwoNumbers = new AsmSample2();
-        Class<?> clazz = generateSumOfTwoNumbers.defineClass("com.rolex.microlabs.asm.AsmSumOfTwoNumbers", bytes, 0, bytes.length);
-        // 反射获取 main 方法
-        Method method = clazz.getMethod("sum", int.class, int.class);
-        Object obj = method.invoke(clazz.newInstance(), 6, 2);
-        System.out.println(obj);
-    }
-
-    private static void outputClazz(byte[] bytes) {
-        // 输出类字节码
-        FileOutputStream out = null;
-        try {
-            String pathName = AsmSample1.class.getResource("/").getPath() + "AsmSumOfTwoNumbers.class";
-            out = new FileOutputStream(new File(pathName));
-            System.out.println("ASM类输出路径：" + pathName);
-            out.write(bytes);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (null != out) {
-                try {
-                    out.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    class AsmSumOfTwoNumbers {
-        public AsmSumOfTwoNumbers() {
-        }
-
-        public int doSum(int var1, int var2) {
-            return var1 + var2;
-        }
     }
 }

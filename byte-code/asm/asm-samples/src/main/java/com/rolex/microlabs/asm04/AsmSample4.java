@@ -1,13 +1,9 @@
 /*
  * Copyright (C) 2020 bsyonline
  */
-package com.rolex.microlabs.asm;
+package com.rolex.microlabs.asm04;
 
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassVisitor;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.*;
 import org.objectweb.asm.commons.AdviceAdapter;
 
 import java.io.File;
@@ -24,7 +20,7 @@ import static org.objectweb.asm.Opcodes.ASM5;
  */
 public class AsmSample4 extends ClassLoader {
     public static void main(String[] args) throws IOException, NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
-        ClassReader cr = new ClassReader(MyMethod.class.getName());
+        ClassReader cr = new ClassReader(Student.class.getName());
         ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_MAXS);
         {
             MethodVisitor methodVisitor = cw.visitMethod(Opcodes.ACC_PUBLIC, "<init>", "()V", null, null);
@@ -34,13 +30,13 @@ public class AsmSample4 extends ClassLoader {
             methodVisitor.visitMaxs(1, 1);
             methodVisitor.visitEnd();
         }
-        ClassVisitor cv = new ProfilingClassAdapter(cw, MyMethod.class.getSimpleName());
+        ClassVisitor cv = new ProfilingClassAdapter(cw, Student.class.getSimpleName());
         cr.accept(cv, ClassReader.EXPAND_FRAMES);
         byte[] bytes = cw.toByteArray();
         outputClazz(bytes);
-        Class<?> clazz = new AsmSample4().defineClass("com.rolex.microlabs.asm.MyMethod", bytes, 0, bytes.length);
-        Method queryUserInfo = clazz.getMethod("queryUserInfo", String.class);
-        Object obj = queryUserInfo.invoke(clazz.newInstance(), "10001");
+        Class<?> clazz = new AsmSample4().defineClass("com.rolex.microlabs.asm04.Student", bytes, 0, bytes.length);
+        Method getName = clazz.getMethod("getName", String.class);
+        Object obj = getName.invoke(clazz.newInstance(), "tom");
         System.out.println("测试结果：" + obj);
     }
 
@@ -54,7 +50,9 @@ public class AsmSample4 extends ClassLoader {
             System.out.println("access：" + access);
             System.out.println("name：" + name);
             System.out.println("desc：" + desc);
-            if (!"queryUserInfo".equals(name)) return null;
+            if (!"getName".equals(name)) {
+                return null;
+            }
             MethodVisitor mv = cv.visitMethod(access, name, desc, signature, exceptions);
             return new ProfilingMethodVisitor(mv, access, name, desc);
         }
@@ -84,7 +82,7 @@ public class AsmSample4 extends ClassLoader {
         // 输出类字节码
         FileOutputStream out = null;
         try {
-            String pathName = AsmSample1.class.getResource("/").getPath() + "AsmSumOfTwoNumbers.class";
+            String pathName = AsmSample4.class.getResource("/").getPath() + "AsmStudent.class";
             out = new FileOutputStream(new File(pathName));
             System.out.println("ASM类输出路径：" + pathName);
             out.write(bytes);

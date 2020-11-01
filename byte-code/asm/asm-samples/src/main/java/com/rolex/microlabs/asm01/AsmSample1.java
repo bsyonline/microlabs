@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2020 bsyonline
  */
-package com.rolex.microlabs.asm;
+package com.rolex.microlabs.asm01;
 
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
@@ -24,7 +24,7 @@ public class AsmSample1 extends ClassLoader {
         // 输出字节码
         outputClazz(bytes);
         // 加载AsmHelloWorld
-        Class<?> clazz = new AsmSample1().defineClass("com.rolex.microlabs.asm.AsmHelloWorld", bytes, 0, bytes.length);
+        Class<?> clazz = new AsmSample1().defineClass("com.rolex.microlabs.asm01.AsmHelloWorld", bytes, 0, bytes.length);
         // 反射获取 main 方法
         Method main = clazz.getMethod("main", String[].class);
         // 调用 main 方法
@@ -59,16 +59,16 @@ public class AsmSample1 extends ClassLoader {
          */
         classWriter.visit(Opcodes.V1_8/*版本号*/,
                 Opcodes.ACC_PUBLIC/*修饰符*/,
-                "com/rolex/microlabs/asm/AsmHelloWorld"/*类全名*/,
+                "com/rolex/microlabs/asm01/AsmHelloWorld"/*类全名*/,
                 null/*签名*/,
-                "java.lang.Object"/*父类*/,
+                "java/lang/Object"/*父类*/,
                 null/*接口*/);
         /*
             添加方法
          */
         MethodVisitor methodVisitor = classWriter.visitMethod(Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC/*修饰符*/,
                 "main"/*方法名*/,
-                "([Ljava.lang.String;)V"/*描述符*/,
+                "([Ljava/lang/String;)V"/*描述符*/,
                 null/*签名*/,
                 null/*异常*/);
         /*
