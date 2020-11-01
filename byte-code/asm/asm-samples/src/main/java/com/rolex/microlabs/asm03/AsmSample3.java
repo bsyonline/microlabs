@@ -15,6 +15,8 @@ import java.lang.reflect.Method;
 import static org.objectweb.asm.Opcodes.ASM5;
 
 /**
+ * 字节码增强方法，给方法增加耗时统计
+ *
  * @author rolex
  * @since 2020
  */

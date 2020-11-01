@@ -10,12 +10,11 @@ package com.rolex.microlabs.asm06;
 public class ApiTest {
     public static void main(String[] args) throws InterruptedException {
         ApiTest apiTest = new ApiTest();
-        String res01 = apiTest.queryUserInfo(111, 17);
+        String res01 = apiTest.hello(111, 17);
         System.out.println("测试结果：" + res01 + "\r\n");
-        ;
     }
 
-    public String queryUserInfo(int uId, int age) throws InterruptedException {
+    public String hello(int uId, int age) throws InterruptedException {
         return "Hello World";
     }
 }
