@@ -3,6 +3,7 @@
  */
 package com.rolex.microlabs.asm06;
 
+import com.google.gson.Gson;
 import org.objectweb.asm.*;
 import org.objectweb.asm.commons.AdviceAdapter;
 
@@ -63,7 +64,9 @@ public class AsmSample6 extends ClassLoader {
 
     static class TryCatchMethodVisitor extends AdviceAdapter {
         private String methodName = "";
-
+        private Label from = new Label(),
+                to = new Label(),
+                target = new Label();
         protected TryCatchMethodVisitor(MethodVisitor methodVisitor, int access, String name, String descriptor) {
             super(ASM5, methodVisitor, access, name, descriptor);
             this.methodName = name;
@@ -71,11 +74,61 @@ public class AsmSample6 extends ClassLoader {
 
         @Override
         protected void onMethodEnter() {
+            //标志：try块开始位置
+            visitLabel(from);
+            visitTryCatchBlock(from,
+                    to,
+                    target,
+                    "java/lang/Exception");
+        }
+
+        @Override
+        public void visitMaxs(int maxStack, int maxLocals) {
+            //标志：try块结束
+            mv.visitLabel(to);
+            //标志：catch块开始位置
+            mv.visitLabel(target);
+
+            mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[]{"java/lang/Exception"});
+
+            // 异常信息保存到局部变量
+            int local = newLocal(Type.LONG_TYPE);
+            mv.visitVarInsn(ASTORE, local);
+
+            // 输出信息
+            mv.visitLdcInsn(AsmSample6.class.getName() + "." + methodName);  // 类名.方法名
+            mv.visitVarInsn(ALOAD, local);
+            mv.visitMethodInsn(INVOKESTATIC, Type.getInternalName(AsmSample6.class), "point", "(Ljava/lang/String;Ljava/lang/Throwable;)V", false);
+
+            // 抛出异常
+            mv.visitVarInsn(ALOAD, local);
+            mv.visitInsn(ATHROW);
+
+            super.visitMaxs(maxStack, maxLocals);
         }
 
         @Override
         protected void onMethodExit(int opcode) {
+            if ((IRETURN <= opcode && opcode <= RETURN) || opcode == ATHROW) {
+                int nextLocal = this.nextLocal;
+                mv.visitVarInsn(ILOAD, nextLocal);
+//                mv.visitVarInsn(ILOAD, nextLocal);
+//                mv.visitVarInsn(ASTORE, nextLocal); // 将栈顶引用类型值保存到局部变量indexbyte中。
+//                mv.visitVarInsn(ALOAD, nextLocal);  // 从局部变量indexbyte中装载引用类型值入栈。
+//
+//                mv.visitLdcInsn(AsmSample6.class.getName() + "." + methodName);  // 类名.方法名
+//                mv.visitVarInsn(ALOAD, nextLocal);
+//                mv.visitMethodInsn(INVOKESTATIC, Type.getInternalName(AsmSample6.class), "point", "(Ljava/lang/String;Ljava/lang/Object;)V", false);
+            }
         }
+    }
+
+    public static void point(String methodName, Throwable throwable) {
+        System.out.println("系统监控 :: [方法名称：" + methodName + " 异常信息：" + throwable.getMessage() + "]\r\n");
+    }
+
+    public static void point(String methodName, Object response) {
+        System.out.println("系统监控 :: [方法名称：" + methodName + " 输出信息：" + new Gson().toJson(response) + "]\r\n");
     }
 
     private static void outputClazz(byte[] bytes) {
