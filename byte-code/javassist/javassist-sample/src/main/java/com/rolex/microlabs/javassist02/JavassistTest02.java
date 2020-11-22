@@ -7,11 +7,11 @@ package com.rolex.microlabs.javassist02;
  * @author rolex
  * @since 2020
  */
-public class JavassistTest {
-    private int a = 10;
+public class JavassistTest02 {
+    private static final int a = 10;
 
     public int plus(int i, int j) {
-        return i + j;
+        return a + i + j;
     }
 
     public double divide(int i, int j) {
