@@ -9,7 +9,7 @@ package com.rolex.microlabs.structural.proxy.static_proxy;
  */
 public class ImageViewer {
     public static void main(String[] args) {
-		ImageProxy imageProxy1 = new ImageProxy("sample/photo1.jpeg");
-		imageProxy1.display();
+		ImageProxy imageProxy = new ImageProxy("sample/photo1.jpeg");
+		imageProxy.display();
     }
 }
