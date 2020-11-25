@@ -11,16 +11,16 @@ public class OuterUserAdapter extends OuterUserInfo implements IUserInfo {
 
     @Override
     public String getName() {
-        return (String)basicInfo().get("name");
+        return (String) basicInfo().get("name");
     }
 
     @Override
     public Integer getAge() {
-        return Integer.parseInt((String)basicInfo().get("age"));
+        return Integer.parseInt((String) basicInfo().get("age"));
     }
 
     @Override
     public String getTechnical() {
-        return (String)technicalInfo().get("language");
+        return (String) technicalInfo().get("language");
     }
 }

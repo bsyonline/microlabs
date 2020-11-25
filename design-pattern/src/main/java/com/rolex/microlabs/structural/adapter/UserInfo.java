@@ -10,19 +10,16 @@ package com.rolex.microlabs.structural.adapter;
 public class UserInfo implements IUserInfo {
     @Override
     public String getName() {
-        System.out.println("username is tom");
-        return null;
+        return "tom";
     }
 
     @Override
     public Integer getAge() {
-        System.out.println("age is 20");
-        return null;
+        return 20;
     }
 
     @Override
     public String getTechnical() {
-        System.out.println("language is java");
-        return null;
+        return "java";
     }
 }
