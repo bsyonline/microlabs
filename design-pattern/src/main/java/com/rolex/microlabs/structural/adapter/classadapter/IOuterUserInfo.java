@@ -1,4 +1,4 @@
-package com.rolex.microlabs.structural.adapter;
+package com.rolex.microlabs.structural.adapter.classadapter;
 
 import java.util.Map;
 

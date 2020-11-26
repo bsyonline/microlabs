@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2020 bsyonline
  */
-package com.rolex.microlabs.structural.adapter;
+package com.rolex.microlabs.structural.adapter.objectadapter;
 
 import lombok.extern.slf4j.Slf4j;
 

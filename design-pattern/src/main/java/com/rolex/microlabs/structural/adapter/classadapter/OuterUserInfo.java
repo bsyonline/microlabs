@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2020 bsyonline
  */
-package com.rolex.microlabs.structural.adapter;
+package com.rolex.microlabs.structural.adapter.classadapter;
 
 import java.util.HashMap;
 import java.util.Map;
