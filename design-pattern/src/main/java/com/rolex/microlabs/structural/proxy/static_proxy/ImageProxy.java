@@ -9,7 +9,7 @@ package com.rolex.microlabs.structural.proxy.static_proxy;
  */
 public class ImageProxy implements Image {
 
-    private JPEGImage target;
+    private Image target;
 
     public ImageProxy(String imageFilePath) {
         this.target = new JPEGImage(imageFilePath);
