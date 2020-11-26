@@ -1,0 +1,24 @@
+@startuml
+
+class App {
+    + main(args : String[]) {static} : void
+}
+
+interface Image {
+    + display() : void
+}
+
+class PNGImage {
+    - imageFilePath : String
+    + display() : void
+}
+
+class ImageProxy {
+    - target : Image
+    + getProxyInstance() : Object
+}
+
+ImageProxy o-- Image
+PNGImage ..|> Image
+
+@enduml

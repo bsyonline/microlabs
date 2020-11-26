@@ -13,7 +13,7 @@ import java.lang.reflect.Proxy;
  */
 public class ImageProxy {
 
-    Image target;
+    private Image target;
 
     public ImageProxy(Image target) {
         this.target = target;

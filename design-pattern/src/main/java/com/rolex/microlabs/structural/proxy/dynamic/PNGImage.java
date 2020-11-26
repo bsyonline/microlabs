@@ -8,7 +8,7 @@ package com.rolex.microlabs.structural.proxy.dynamic;
  * @since 2020
  */
 public class PNGImage implements Image {
-    String imageFilePath;
+    private String imageFilePath;
 
     public PNGImage(String imageFilePath) {
         this.imageFilePath = imageFilePath;

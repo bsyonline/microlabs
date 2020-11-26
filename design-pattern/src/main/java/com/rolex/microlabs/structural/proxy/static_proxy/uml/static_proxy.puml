@@ -5,7 +5,7 @@ interface Image {
 }
 
 class App {
-    + main(String[] args) {static} : void
+    + main(args : String[]) {static} : void
 }
 
 class JPEGImage {
