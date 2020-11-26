@@ -5,7 +5,7 @@ class App {
 }
 
 class UserService {
-    + UserService(IUserInfo userInfo)
+    + UserService(userInfo : IUserInfo)
     - userInfo : IUserInfo
     ~ getUserInfo() : void
 }
