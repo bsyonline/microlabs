@@ -40,7 +40,7 @@ class OuterUserAdapter {
 }
 
 OuterUserAdapter ..|> IUserInfo
-OuterUserAdapter --> "-outerUserInfo" IOuterUserInfo
+OuterUserAdapter o-- "-outerUserInfo" IOuterUserInfo
 UserInfo ..|> IUserInfo
 OuterUserInfo ..|> IOuterUserInfo
 UserService --> "-userInfo" IUserInfo
