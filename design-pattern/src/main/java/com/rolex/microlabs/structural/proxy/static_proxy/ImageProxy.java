@@ -7,7 +7,7 @@ package com.rolex.microlabs.structural.proxy.static_proxy;
  * @author rolex
  * @since 2020
  */
-public class ImageProxy implements Image {
+public class ImageProxy implements Image, Advice {
 
     private Image target;
 
@@ -17,8 +17,18 @@ public class ImageProxy implements Image {
 
     @Override
     public void display() {
-        System.out.println("proxy start");
+        before();
         target.display();
-        System.out.println("proxy end");
+        after();
+    }
+
+    @Override
+    public void before() {
+        System.out.println("before");
+    }
+
+    @Override
+    public void after() {
+        System.out.println("after");
     }
 }

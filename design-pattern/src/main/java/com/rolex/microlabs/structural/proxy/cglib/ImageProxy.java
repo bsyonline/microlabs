@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
  * @author rolex
  * @since 2020
  */
-public class ImageProxy implements MethodInterceptor {
+public class ImageProxy implements MethodInterceptor,Advice {
 
     private GIFImage target;
 
@@ -30,9 +30,19 @@ public class ImageProxy implements MethodInterceptor {
 
     @Override
     public Object intercept(Object o, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
-        System.out.println("proxy start");
+        before();
         Object obj = methodProxy.invokeSuper(o, args);
-        System.out.println("proxy end");
+        after();
         return obj;
+    }
+
+    @Override
+    public void before() {
+        System.out.println("before");
+    }
+
+    @Override
+    public void after() {
+        System.out.println("after");
     }
 }

@@ -11,7 +11,7 @@ import java.lang.reflect.Proxy;
  * @author rolex
  * @since 2020
  */
-public class ImageProxy {
+public class ImageProxy implements Advice{
 
     private Image target;
 
@@ -23,11 +23,21 @@ public class ImageProxy {
         return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                System.out.println("proxy start");
+                before();
                 Object obj = method.invoke(target, args);
-                System.out.println("proxy end");
+                after();
                 return obj;
             }
         });
+    }
+
+    @Override
+    public void before(){
+        System.out.println("before");
+    }
+
+    @Override
+    public void after(){
+        System.out.println("after");
     }
 }

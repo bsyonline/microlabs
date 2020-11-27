@@ -4,6 +4,11 @@ class App {
     + main(args : String[]) {static} : void
 }
 
+interface Advice {
+    + before() : void
+    + after() : void
+}
+
 class GIFImage {
     imageFilePath : String
     + display() : void
@@ -24,5 +29,6 @@ interface Callback
 ImageProxy ..|> MethodInterceptor
 ImageProxy o-- GIFImage
 MethodInterceptor --|> Callback
+ImageProxy ..|> Advice
 
 @enduml

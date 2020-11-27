@@ -4,6 +4,11 @@ interface Image {
     + display() : void
 }
 
+interface Advice {
+    + before() : void
+    + after() : void
+}
+
 class App {
     + main(args : String[]) {static} : void
 }
@@ -21,5 +26,6 @@ class ImageProxy {
 JPEGImage ..|> Image
 ImageProxy ..|> Image
 ImageProxy o-- Image
+ImageProxy ..|> Advice
 
 @enduml

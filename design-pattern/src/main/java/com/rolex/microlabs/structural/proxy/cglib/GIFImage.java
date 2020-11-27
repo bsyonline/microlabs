@@ -15,6 +15,6 @@ public class GIFImage {
     }
 
     public void display() {
-        System.out.println("display image" + imageFilePath);
+        System.out.println("display image " + imageFilePath);
     }
 }

@@ -16,6 +16,6 @@ public class PNGImage implements Image {
 
     @Override
     public void display() {
-        System.out.println("display image" + imageFilePath);
+        System.out.println("display image " + imageFilePath);
     }
 }

@@ -8,6 +8,11 @@ interface Image {
     + display() : void
 }
 
+interface Advice {
+    + before() : void
+    + after() : void
+}
+
 class PNGImage {
     - imageFilePath : String
     + display() : void
@@ -18,7 +23,10 @@ class ImageProxy {
     + getProxyInstance() : Object
 }
 
+ImageProxy +.. InvocationHandler
+MyInvocationHandler ..|> InvocationHandler
 ImageProxy o-- Image
+ImageProxy ..|> Advice
 PNGImage ..|> Image
 
 @enduml
