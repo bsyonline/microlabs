@@ -8,4 +8,8 @@ package com.rolex.microlabs.structural.facade;
  * @since 2020
  */
 public class App {
+    public static void main(String[] args) {
+        GovernmentFacade governmentFacade = new GovernmentFacade();
+        governmentFacade.approve();
+    }
 }
