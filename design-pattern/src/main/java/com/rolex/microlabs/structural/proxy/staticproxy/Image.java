@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2020 bsyonline
  */
-package com.rolex.microlabs.structural.proxy.static_proxy;
+package com.rolex.microlabs.structural.proxy.staticproxy;
 
 /**
  * @author rolex

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2020 bsyonline
  */
-package com.rolex.microlabs.structural.proxy.static_proxy;
+package com.rolex.microlabs.structural.proxy.staticproxy;
 
 /**
  * @author rolex
@@ -12,7 +12,7 @@ public class ImageProxy implements Image, Advice {
     private Image target;
 
     public ImageProxy(String imageFilePath) {
-        this.target = new JPEGImage(imageFilePath);
+        this.target = new JpegImage(imageFilePath);
     }
 
     @Override

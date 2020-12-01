@@ -15,9 +15,9 @@ import java.lang.reflect.Method;
  */
 public class ImageProxy implements MethodInterceptor,Advice {
 
-    private GIFImage target;
+    private GifImage target;
 
-    public ImageProxy(GIFImage target) {
+    public ImageProxy(GifImage target) {
         this.target = target;
     }
 

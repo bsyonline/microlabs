@@ -9,7 +9,7 @@ package com.rolex.microlabs.structural.proxy.dynamic;
  */
 public class App {
     public static void main(String[] args) {
-        Image pngImage = new PNGImage("photo1.png");
+        Image pngImage = new PngImage("photo1.png");
         Image imageProxy = (Image) new ImageProxy(pngImage).getProxyInstance();
         imageProxy.display();
     }

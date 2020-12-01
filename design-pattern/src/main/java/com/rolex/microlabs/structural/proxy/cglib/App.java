@@ -9,8 +9,8 @@ package com.rolex.microlabs.structural.proxy.cglib;
  */
 public class App {
     public static void main(String[] args) {
-        GIFImage gifImage = new GIFImage("photo1.gif");
-        GIFImage imageProxy = (GIFImage) new ImageProxy(gifImage).getProxyInstance();
+        GifImage gifImage = new GifImage("photo1.gif");
+        GifImage imageProxy = (GifImage) new ImageProxy(gifImage).getProxyInstance();
 		imageProxy.display();
     }
 }
