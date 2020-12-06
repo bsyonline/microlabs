@@ -14,7 +14,7 @@ public class OuterUserInfo implements IOuterUserInfo {
 
     @Override
     public Map basicInfo() {
-        Map basicInfo = new HashMap();
+        Map basicInfo = new HashMap(16);
         basicInfo.put("name", "alice");
         basicInfo.put("age", "22");
         return basicInfo;
@@ -22,7 +22,7 @@ public class OuterUserInfo implements IOuterUserInfo {
 
     @Override
     public Map technicalInfo() {
-        Map technicalInfo = new HashMap();
+        Map technicalInfo = new HashMap(16);
         technicalInfo.put("language", "c++");
         return technicalInfo;
     }

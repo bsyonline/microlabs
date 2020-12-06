@@ -1,20 +1,19 @@
 /*
  * Copyright (C) 2020 bsyonline
  */
-package com.rolex.microlabs.structural.proxy.dynamic;
+package com.rolex.microlabs.structural.proxy.cglib;
 
 /**
  * @author rolex
  * @since 2020
  */
-public class PNGImage implements Image {
-    private String imageFilePath;
+public class GifImage {
+    String imageFilePath;
 
-    public PNGImage(String imageFilePath) {
+    public GifImage(String imageFilePath) {
         this.imageFilePath = imageFilePath;
     }
 
-    @Override
     public void display() {
         System.out.println("display image " + imageFilePath);
     }

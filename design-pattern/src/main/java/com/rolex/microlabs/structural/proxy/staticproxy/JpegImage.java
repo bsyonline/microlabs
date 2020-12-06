@@ -1,16 +1,16 @@
 /*
  * Copyright (C) 2020 bsyonline
  */
-package com.rolex.microlabs.structural.proxy.static_proxy;
+package com.rolex.microlabs.structural.proxy.staticproxy;
 
 /**
  * @author rolex
  * @since 2020
  */
-public class JPEGImage implements Image {
+public class JpegImage implements Image {
     private String imageFilePath;
 
-    public JPEGImage(String imageFilePath) {
+    public JpegImage(String imageFilePath) {
         this.imageFilePath = imageFilePath;
     }
 

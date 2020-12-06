@@ -7,7 +7,7 @@ package com.rolex.microlabs.principle.dip;
  * @author rolex
  * @since 2020
  */
-public class BMW implements ICar {
+public class Bmw implements ICar {
     @Override
     public void run() {
         System.out.println("bmw is running");
