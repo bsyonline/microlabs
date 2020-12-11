@@ -8,4 +8,7 @@ package com.rolex.microlabs.behavioral.templatemethod;
  * @since 2020
  */
 public class App {
+    public static void main(String[] args) {
+
+    }
 }
