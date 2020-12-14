@@ -8,4 +8,11 @@ package com.rolex.microlabs.behavioral.state;
  * @since 2020
  */
 public class App {
+    public static void main(String[] args) {
+        Mario mario = new Mario();
+        mario.getMushRoom();
+        System.out.println("mario state: " + mario.getState());
+        mario.meetMonster();
+        System.out.println("mario state: " + mario.getState());
+    }
 }
