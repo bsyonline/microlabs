@@ -12,14 +12,14 @@ import java.sql.SQLException;
  * @author rolex
  * @since 2020
  */
-public class Test {
+public class App {
 
     public static void main(String[] args) {
         System.out.println("饿汉式：" + (Singleton1.getInstance() == Singleton1.getInstance()));
         System.out.println("懒汉式（双重校验）：" + (Singleton2.getInstance() == Singleton2.getInstance()));
         System.out.println("静态内部类：" + (Singleton3.getInstance() == Singleton3.getInstance()));
         System.out.println("枚举：" + (Singleton4.INSTANCE == Singleton4.INSTANCE));
-        new Test().query();
+        new App().query();
     }
 
     public void query(){
