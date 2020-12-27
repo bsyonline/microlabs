@@ -35,5 +35,6 @@ Bmw --|> Car
 BenzFactory ..|> CarFactory
 BmwFactory ..|> CarFactory
 Factory o-- CarFactory
+App ..> Factory
 
 @enduml
