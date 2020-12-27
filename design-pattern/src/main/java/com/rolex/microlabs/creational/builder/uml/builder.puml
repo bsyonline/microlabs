@@ -69,6 +69,7 @@ Armor --o Hero
 Mount --o Hero
 Profession --o Hero
 Weapon --o Hero
+App ..> Hero
 
 Category --+ Armor
 
