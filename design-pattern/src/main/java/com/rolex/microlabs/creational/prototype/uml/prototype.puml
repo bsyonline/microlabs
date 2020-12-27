@@ -19,5 +19,6 @@ class LandWind {
 LandRover ..|> Car
 LandWind ..|> Car
 LandRover --o LandWind
+App ..> LandRover
 
 @enduml
