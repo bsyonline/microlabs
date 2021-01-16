@@ -4,7 +4,7 @@ discount
 
 package rules
 
-import com.rolex.microlabs.model.Product
+import com.rolex.alphax.model.Product
 
 template "products"
 

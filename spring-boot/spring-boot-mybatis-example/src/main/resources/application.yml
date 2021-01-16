@@ -8,10 +8,10 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
 mybatis:
   mapper-locations: classpath:mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
-  type-handlers-package: com.rolex.microlabs.handler
+  type-handlers-package: com.rolex.alphax.handler
 # 打印sql
 logging:
   level:
-    com.rolex.microlabs.dao: debug # 查询接口的包名
+    com.rolex.alphax.dao: debug # 查询接口的包名
 pagehelper:
   reasonable: true # 合理化参数

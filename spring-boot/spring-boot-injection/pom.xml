@@ -9,7 +9,7 @@
         <version>2.1.12.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>org.rolex.microlabs</groupId>
+    <groupId>org.rolex.alphax</groupId>
     <artifactId>spring-boot-injection</artifactId>
     <version>1.0-SNAPSHOT</version>
 

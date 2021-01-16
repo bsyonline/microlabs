@@ -1,6 +1,6 @@
 package rules
 
-import com.rolex.microlabs.model.Product
+import com.rolex.alphax.model.Product
 
 rule "Offer for Diamond"
 	when

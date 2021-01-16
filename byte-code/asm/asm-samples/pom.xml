@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.rolex.microlabs</groupId>
+    <groupId>com.rolex.alphax</groupId>
     <artifactId>asm-samples</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
@@ -50,7 +50,7 @@
                         </manifest>
                         <manifestEntries>
                             <Premain-Class>
-                                com.rolex.microlabs.asm06.PreMain
+                                com.rolex.alphax.asm06.PreMain
                             </Premain-Class>
                         </manifestEntries>
                     </archive>

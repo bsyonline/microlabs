@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.rolex.microlabs.dao.UserMapper">
+<mapper namespace="com.rolex.alphax.dao.UserMapper">
 
-    <resultMap id="userMap" type="com.rolex.microlabs.domain.User">
+    <resultMap id="userMap" type="com.rolex.alphax.domain.User">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="age" jdbcType="INTEGER" property="age"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.rolex.microlabs.domain.User">
+    <insert id="insert" parameterType="com.rolex.alphax.domain.User">
         insert into t_user
             (id, name, age)
         values
             (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER})
     </insert>
 
-    <update id="update" parameterType="com.rolex.microlabs.domain.User">
+    <update id="update" parameterType="com.rolex.alphax.domain.User">
         update t_user
             set name = #{name,jdbcType=VARCHAR},
             age = #{age,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
 
-    <delete id="delete" parameterType="com.rolex.microlabs.domain.User">
+    <delete id="delete" parameterType="com.rolex.alphax.domain.User">
         delete from t_user
         where id = #{id,jdbcType=INTEGER}
     </delete>
 
-    <select id="findOne" parameterType="java.lang.Integer" resultType="com.rolex.microlabs.domain.User">
+    <select id="findOne" parameterType="java.lang.Integer" resultType="com.rolex.alphax.domain.User">
         select id, name, age
         from t_user
         where id = #{id, jdbcType=INTEGER}

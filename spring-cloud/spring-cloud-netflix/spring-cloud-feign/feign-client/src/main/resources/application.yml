@@ -16,4 +16,4 @@ feign:
     enabled: true #开启okhttp
 logging:
   level:
-    com.rolex.microlabs.service: debug #开启日志
+    com.rolex.alphax.service: debug #开启日志

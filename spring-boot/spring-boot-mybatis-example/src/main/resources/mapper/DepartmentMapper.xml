@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.rolex.microlabs.dao.DepartmentDao">
+<mapper namespace="com.rolex.alphax.dao.DepartmentDao">
 
-    <resultMap id="deptResultMap" type="com.rolex.microlabs.model.Department">
+    <resultMap id="deptResultMap" type="com.rolex.alphax.model.Department">
         <id column="dept_id" property="deptId"></id>
         <result column="dept_name" property="deptName"></result>
-        <collection property="employees" ofType="com.rolex.microlabs.model.Employee">
+        <collection property="employees" ofType="com.rolex.alphax.model.Employee">
             <id column="id" property="id"></id>
             <result column="name" property="name"></result>
         </collection>

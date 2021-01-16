@@ -30,7 +30,7 @@
                         </manifest>
                         <manifestEntries>
                             <Premain-Class>
-                                com.rolex.microlabs.agent.MyAgent
+                                com.rolex.alphax.agent.MyAgent
                             </Premain-Class>
                         </manifestEntries>
                     </archive>

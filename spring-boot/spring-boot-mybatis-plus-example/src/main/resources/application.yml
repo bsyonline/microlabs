@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
 logging:
   level:
-    com.rolex.microlabs.dao: trace
+    com.rolex.alphax.dao: trace
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

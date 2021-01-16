@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.rolex.microlabs</groupId>
+    <groupId>com.rolex.alphax</groupId>
     <artifactId>proguard</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -54,8 +54,8 @@
                         <option>-keepparameternames</option>
                         <option>-keepclassmembers enum * { *; }</option>
                         <option>-keep interface * extends * { *; }</option>
-                        <option>-keep class com.rolex.microlabs.keep.** {*;}</option>
-                        <option>-keep class com.rolex.microlabs.proguard.ProguardApplication{*;}</option>
+                        <option>-keep class com.rolex.alphax.keep.** {*;}</option>
+                        <option>-keep class com.rolex.alphax.proguard.ProguardApplication{*;}</option>
                         <option>-keepclassmembers class * {
                             @org.springframework.beans.factory.annotation.Autowired *;
                             @org.springframework.beans.factory.annotation.Value *;
@@ -81,7 +81,7 @@
                             <goal>repackage</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.rolex.microlabs.proguard.ProguardApplication</mainClass>
+                            <mainClass>com.rolex.alphax.proguard.ProguardApplication</mainClass>
                         </configuration>
                     </execution>
                 </executions>

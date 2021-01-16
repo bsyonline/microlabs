@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rolex.microlabs.licence.mapper.LicenceMapper">
+<mapper namespace="com.rolex.alphax.licence.mapper.LicenceMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.rolex.microlabs.licence.entity.Licence">
+    <resultMap id="BaseResultMap" type="com.rolex.alphax.licence.entity.Licence">
         <id column="licence_id" property="licenceId" />
         <result column="organization_id" property="organizationId" />
         <result column="licence_type" property="licenceType" />

@@ -15,7 +15,7 @@
         <version>2.2.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.rolex.microlabs</groupId>
+    <groupId>com.rolex.alphax</groupId>
     <artifactId>spring-cloud-zuul</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-cloud-zuul</name>

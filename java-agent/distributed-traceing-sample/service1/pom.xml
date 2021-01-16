@@ -9,7 +9,7 @@
         <version>2.1.12.RELEASE</version>
         <relativePath/>
     </parent>
-    <groupId>org.rolex.microlabs</groupId>
+    <groupId>org.rolex.alphax</groupId>
     <artifactId>service1</artifactId>
     <version>1.0-SNAPSHOT</version>
 

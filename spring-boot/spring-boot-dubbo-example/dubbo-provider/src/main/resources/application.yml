@@ -9,7 +9,7 @@ dubbo:
     name: dubbo
     port: 20890
   scan:
-    base-packages: com.rolex.microlabs.service.impl
+    base-packages: com.rolex.alphax.service.impl
   application:
     name: ${spring.application.name}
 spring:

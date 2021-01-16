@@ -8,6 +8,6 @@
     <suppress checks="InnerAssignment" files="Test.java"/>
     <suppress checks="ClassDataAbstractionCoupling" files="Test.java"/>
     <suppress checks="AbbreviationAsWordInName" files="Test.java"/>
-    <suppress checks="JavadocVariable" files="^.*[\\/]src[\\/]main[\\/]java[\\/]com[\\/]rolex[\\/]microlabs.*$"/>
+    <suppress checks="JavadocVariable" files="^.*[\\/]src[\\/]main[\\/]java[\\/]com[\\/]rolex[\\/]alphax.*$"/>
     <suppress checks="[a-zA-Z0-9]*" files="com.rolex.*.*"/>
 </suppressions>

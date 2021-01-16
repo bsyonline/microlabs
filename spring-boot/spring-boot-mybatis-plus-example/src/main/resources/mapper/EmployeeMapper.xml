@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rolex.microlabs.employee.mapper.EmployeeMapper">
+<mapper namespace="com.rolex.alphax.employee.mapper.EmployeeMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.rolex.microlabs.employee.entity.Employee">
+    <resultMap id="BaseResultMap" type="com.rolex.alphax.employee.entity.Employee">
         <result column="id" property="id" />
         <result column="name" property="name" />
         <result column="age" property="age" />
@@ -12,7 +12,7 @@
         <result column="created_time" property="createdTime" />
     </resultMap>
 
-    <resultMap id="EmployeeMap" type="com.rolex.microlabs.employee.service.bo.EmployeeBo">
+    <resultMap id="EmployeeMap" type="com.rolex.alphax.employee.service.bo.EmployeeBo">
         <result column="id" property="id" />
         <result column="name" property="name" />
         <result column="age" property="age" />
@@ -25,7 +25,7 @@
         where e.dept_id = d.dept_id and name like CONCAT('%',#{employee.name},'%') and age>#{employee.age}
     </select>
 
-    <select id="selectAll" resultType="com.rolex.microlabs.employee.entity.Employee">
+    <select id="selectAll" resultType="com.rolex.alphax.employee.entity.Employee">
         select * from t_employee
     </select>
 

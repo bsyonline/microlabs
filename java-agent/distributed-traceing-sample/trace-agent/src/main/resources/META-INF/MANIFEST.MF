@@ -1,2 +1,2 @@
 Manifest-Version: 1.0
-Premain-Class: com.rolex.microlabs.agent.TraceAgent
+Premain-Class: com.rolex.alphax.agent.TraceAgent

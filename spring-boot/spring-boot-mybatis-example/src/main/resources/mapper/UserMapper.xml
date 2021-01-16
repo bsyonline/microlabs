@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.rolex.microlabs.dao.UserDao">
+<mapper namespace="com.rolex.alphax.dao.UserDao">
     <!-- 开启二级缓存 -->
     <cache/>
 
-    <insert id="save" parameterType="com.rolex.microlabs.model.User">
+    <insert id="save" parameterType="com.rolex.alphax.model.User">
         insert into t_user
           (name, age, gender, skill)
         values
           (#{name}, #{age}, #{gender}, #{skill})
     </insert>
 
-    <select id="findAll" resultType="com.rolex.microlabs.model.User">
+    <select id="findAll" resultType="com.rolex.alphax.model.User">
         select id, name, age, gender, skill from t_user
     </select>
 
-    <select id="findByCondition" parameterType="com.rolex.microlabs.model.User"
-            resultType="com.rolex.microlabs.model.User">
+    <select id="findByCondition" parameterType="com.rolex.alphax.model.User"
+            resultType="com.rolex.alphax.model.User">
         select id, name, age, gender, skill from t_user
         <where>
             <if test="name != null">and name=#{name}</if>
@@ -25,8 +25,8 @@
         </where>
     </select>
 
-    <select id="findByAnyCondition" parameterType="com.rolex.microlabs.model.User"
-            resultType="com.rolex.microlabs.model.User">
+    <select id="findByAnyCondition" parameterType="com.rolex.alphax.model.User"
+            resultType="com.rolex.alphax.model.User">
         select id, name, age, gender, skill from t_user
         <where>
             <choose>
@@ -37,7 +37,7 @@
         </where>
     </select>
 
-    <update id="update" parameterType="com.rolex.microlabs.model.User">
+    <update id="update" parameterType="com.rolex.alphax.model.User">
         update t_user
         <set>
             <if test="name != null">name=#{name},</if>
@@ -56,7 +56,7 @@
         </foreach>
     </insert>
 
-    <select id="batchQuery" resultType="com.rolex.microlabs.model.User">
+    <select id="batchQuery" resultType="com.rolex.alphax.model.User">
         select name, age, gender, skill from t_user
         where id in
         <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
@@ -83,15 +83,15 @@
         </foreach>
     </update>
 
-    <select id="listForPage" resultType="com.rolex.microlabs.model.User">
+    <select id="listForPage" resultType="com.rolex.alphax.model.User">
         select * from t_user
     </select>
 
-    <select id="findByNameAndAge" resultType="com.rolex.microlabs.model.User">
+    <select id="findByNameAndAge" resultType="com.rolex.alphax.model.User">
         select * from t_user where name=#{name} and age=#{age}
     </select>
 
-    <select id="findByAge" parameterType="java.lang.Integer" resultType="com.rolex.microlabs.model.User">
+    <select id="findByAge" parameterType="java.lang.Integer" resultType="com.rolex.alphax.model.User">
         select * from t_user where age=#{age}
     </select>
 
