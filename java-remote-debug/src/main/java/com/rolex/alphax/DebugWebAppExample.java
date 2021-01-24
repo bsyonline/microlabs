@@ -48,7 +48,7 @@ public class DebugWebAppExample {
     private static EventQueue eventQueue;
     private static EventSet eventSet;
     private static boolean vmExit = false;
-    private static String className = "com.ksyun.remote.debug.controller.HelloController";
+    private static String className = "com.rolex.alphax.remote.debug.controller.HelloController";
     private static int breakPoint = 17;
 
     public static void main(String[] args) throws Exception {
