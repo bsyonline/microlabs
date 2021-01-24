@@ -42,7 +42,7 @@ import java.util.Map;
  * @author rolex
  * @since 2021
  */
-public class DebuggerExample {
+public class DebugAppExample {
     private static VirtualMachine vm;
     private static EventRequestManager eventRequestManager;
     private static EventQueue eventQueue;
@@ -70,7 +70,7 @@ public class DebuggerExample {
             throw new IllegalStateException("Could not find socket connector");
         }
         Map<String, Connector.Argument> defaultArguments = socketAttachingConnector.defaultArguments();
-        defaultArguments.get("port").setValue("5555");
+        defaultArguments.get("port").setValue("5005");
         vm = socketAttachingConnector.attach(defaultArguments);
     }
 
