@@ -1,0 +1,21 @@
+server:
+  port: 8081
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/security?serverTimezone=GMT%2B8&useUnicode=true&ampcharacterEncoding=UTF-8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+logging:
+  level:
+    com.rolex.alphax: debug
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+security:
+  oauth2:
+    client:
+      id: 1a6642b4-622d-11eb-a707-00059a3c7a00
+      secret: 123

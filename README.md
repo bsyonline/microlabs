@@ -1,2 +1,2 @@
-# alphax
+# AlphaX
 alphax
