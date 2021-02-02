@@ -2,6 +2,7 @@ package com.rolex.alphax.controller;
 
 import com.google.common.collect.Lists;
 import com.rolex.alphax.model.Order;
+import com.rolex.alphax.service.bo.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-public class OrderController {
+public class UserController {
 
     @Autowired
     RestTemplate restTemplate;
@@ -22,9 +23,11 @@ public class OrderController {
     @Value("${security.oauth2.client.secret}")
     String secret;
 
-    @GetMapping("/orders/list")
-    public List list() {
-        return Lists.newArrayList(new Order("001"));
+    @GetMapping("/users/info")
+    public SysUser list() {
+        SysUser sysUser = new SysUser();
+        sysUser.setUsername("John");
+        return sysUser;
     }
 
     @GetMapping("/oauth/code/callback")

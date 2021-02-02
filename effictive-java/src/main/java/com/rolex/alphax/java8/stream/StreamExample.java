@@ -3,11 +3,9 @@
  */
 package com.rolex.alphax.java8.stream;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -51,8 +49,27 @@ public class StreamExample {
         Map<Integer, List<Integer>> collect7 = Stream.of(1, 2, 3, 2, 2, 3).collect(Collectors.groupingBy(i -> i, Collectors.mapping(i -> i, Collectors.toList())));
         System.out.println("collect7=" + collect7);
         // custom collector, like joining
-        String v5 = Stream.of("a", "b", "c").collect(new StringCollector(", ", "[", "]"));
-        System.out.println("v5=" + v5);
+//        String v5 = Stream.of("a", "b", "c").collect(new StringCollector(", ", "[", "]"));
+//        System.out.println("v5=" + v5);
+        // word count
+        Map<String, Long> collect8 = Stream.of("John", "Paul", "George", "John", "Paul", "John")
+                .map(s -> s.chars().mapToObj(c -> Character.toString((char) c)).collect(Collectors.toList()))
+                .flatMap(l -> l.stream())
+                .collect(Collectors.groupingBy(str -> str, Collectors.counting()));
+        System.out.println("collect8=" + collect8);
+
+
+        int[] arr = new int[]{1,2,3,4};
+        Arrays.parallelPrefix(arr, Integer::sum);
+        System.out.println(Arrays.stream(arr).mapToObj(d->String.valueOf(d)).collect(Collectors.joining(",","","")));
+
+        Stream.of(1,2,3,4).mapToLong(l->l);
+
+
+
+        double[] doubles = simpleMovingAverage(new double[]{0, 1, 2, 3, 4, 3.5}, 3);
+        System.out.println(Arrays.stream(doubles).mapToObj(d->String.valueOf(d)).collect(Collectors.joining(",","","")));
+
         /*
             map to list
          */
@@ -72,4 +89,14 @@ public class StreamExample {
 
     }
 
+    public static double[] simpleMovingAverage(double[] values, int n) {
+        double[] sums = Arrays.copyOf(values, values.length); // 不修改原数组
+        Arrays.parallelPrefix(sums, Double::sum); // 并行计算，将数组的元素相加。
+        int start = n - 1;
+        return IntStream.range(start, sums.length) // 得到包含所需元素下标的流
+                .mapToDouble(i -> {
+                    double prefix = i == start ? 0 : sums[i - n];
+                    return (sums[i] - prefix) / n; // 求平均
+                }).toArray(); //
+    }
 }
