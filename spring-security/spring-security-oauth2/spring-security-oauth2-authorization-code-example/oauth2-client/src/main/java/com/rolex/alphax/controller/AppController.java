@@ -1,32 +1,27 @@
-package com.rolex.alphax;
+package com.rolex.alphax.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.rolex.alphax.model.SysUser;
 import lombok.extern.slf4j.Slf4j;
-import net.minidev.json.JSONObject;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.json.GsonJsonParser;
-import org.springframework.http.*;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
-import java.util.Map;
-
 @Controller
-@SpringBootApplication
 @Slf4j
-public class Demo {
+public class AppController {
 
     @GetMapping("/oauth/code/alphax")
     public String callback(@RequestParam("code") String code, Model model) {
@@ -37,13 +32,11 @@ public class Demo {
         SysUser userInfo = getUserInfo(accessToken);
 
         model.addAttribute("user", userInfo);
-        log.info("重定向到index");
         return "redirect:/userPage?username=" + userInfo.getUsername();
     }
 
-    // 控制器帮我们转发到thymeleaf
     @RequestMapping("/userPage")
-    public String forwardToMain(String username, Model model) {
+    public String userPage(String username, Model model) {
         model.addAttribute("username", username);
         return "user";
     }
@@ -100,10 +93,5 @@ public class Demo {
         String userInfo = response.getBody();
         log.info("userInfo={}", userInfo);
         return new Gson().fromJson(userInfo, SysUser.class);
-    }
-
-
-    public static void main(String[] args) {
-        SpringApplication.run(Demo.class, args);
     }
 }

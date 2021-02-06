@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -10,15 +10,27 @@
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/webjars/js-cookie/js.cookie.js"></script>
 </head>
 <body>
-<h1>Demo</h1>
 <div class="container">
+    <div id="login-box" style="border:1px solid #e5e5e5;width: 167px;height: 142px;
 
-    <div class="container authenticated" style="display:none">
-        Logged1 in as: <p th:text="${user.username}"></p>
-        <button onClick="logout()" class="btn btn-primary">退出</button>
+
+        position: absolute;
+
+        left:50%;
+
+        top:30%;padding:15px;
+
+        margin-top: -50px;
+
+        margin-left: -50px;">
+        <div style="margin-bottom:15px">
+            <a href="/oauth2/authorization/github" class="btn btn-primary btn-lg btn-blockactive" role="button">GitHub 登录</a>
+        </div>
+        <div>
+            <a href="/oauth2/authorization/alphax" class="btn btn-primary btn-lg btn-blockactive" role="button">AlphaX 登录</a>
+        </div>
     </div>
 </div>
 </body>
