@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @since 2020
  */
 @Controller
-@RequestMapping("/orders")
-public class OrderController {
-
+@RequestMapping("/sys/logs")
+public class LogController {
     @GetMapping
     public String list() {
-        return "order/order";
+        return "sys/log";
     }
-
 }

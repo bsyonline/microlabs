@@ -3,10 +3,8 @@
  */
 package com.rolex.alphax.service.bo;
 
-import com.rolex.alphax.dao.entity.Permission;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
 
 import java.util.List;
 
@@ -16,7 +14,7 @@ import java.util.List;
  */
 @Setter
 @Getter
-public final class GeneralGrantedAuthority implements GrantedAuthority {
+public final class GeneralGrantedAuthority {
     private final String role;
     private final List<SysPermission> permissions;
 
@@ -25,8 +23,4 @@ public final class GeneralGrantedAuthority implements GrantedAuthority {
         this.permissions = permissions;
     }
 
-    @Override
-    public String getAuthority() {
-        return null;
-    }
 }
