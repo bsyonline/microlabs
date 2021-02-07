@@ -3,20 +3,35 @@ spring:
     oauth2:
       client:
         registration:
-          github:
-            client-id: b2cedfecec7b6dd2d594
-            client-secret: b9d75d571eb6e884b5873d627462e380e86d4f6a
-#          alphax:
-#            client-id: 1a6642b4-622d-11eb-a707-00059a3c7a00
-#            client-secret: 123
-#            authorization-grant-type: authorization_code
-#            redirect-uri: http://localhost:8080/client/login/oauth2/code/custom
-#            provider:
-#              custom:
-#                authorization-uri: http://localhost:8081/oauth2/authorizationserver/oauth/authorize
-#                token-uri: http://localhost:8081/oauth2/authorizationserver/oauth/token
-#                user-info-uri: http://localhost:8082/resourceserver
-#                user-name-attribute: name
+          gitlab:
+            client-id: 1a6642b4-622d-11eb-a707-00059a3c7a00
+            client-secret: 123
+            client-authentiacation-method: basic
+            authorization-grant-type: authorization_code
+            scope: read,write
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            provider: gitlab
+            client-name: Gitlab
+          alphax:
+            client-id: 1a6642b4-622d-11eb-a707-00059a3c7a00
+            client-secret: 123
+            client-authentiacation-method: basic
+            authorization-grant-type: authorization_code
+            scope: read,write
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            provider: alphax
+            client-name: AlphaX
+        provider:
+          alphax:
+            authorization-uri: http://auth-server.com:8082/oauth/authorize
+            token-uri: http://auth-server.com:8082/oauth/token
+            user-info-uri: http://resource-server.com:8081/users/info
+            user-name-attribute: username
+          gitlab:
+            authorization-uri: http://auth-server.com:8082/oauth/authorize
+            token-uri: http://auth-server.com:8082/oauth/token
+            user-info-uri: http://resource-server.com:8081/users/info
+            user-name-attribute: username
   thymeleaf:
     suffix: .html
     mode: HTML5
