@@ -11,19 +11,11 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
-  security:
-    login-return-type: html
-#    user:
-#      name: john
-#      password: 123
 logging:
   level:
     com.rolex.alphax: debug
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  thymeleaf:
-    cache: false #关闭缓存
-    prefix: classpath:/templates/ #调整页面路径
-    enabled: true
+
 
