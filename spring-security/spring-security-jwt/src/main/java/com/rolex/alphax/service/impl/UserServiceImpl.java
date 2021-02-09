@@ -7,12 +7,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.rolex.alphax.dao.entity.*;
 import com.rolex.alphax.dao.mapper.*;
 import com.rolex.alphax.service.UserService;
-import com.rolex.alphax.service.bo.GeneralGrantedAuthority;
-import com.rolex.alphax.service.bo.SysPermission;
-import com.rolex.alphax.service.bo.SysRole;
-import com.rolex.alphax.service.bo.SysUser;
+import com.rolex.alphax.service.bo.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -92,11 +90,12 @@ public class UserServiceImpl implements UserService {
         if (null == sysUser) {
             throw new UsernameNotFoundException(username);
         }
-        List<GeneralGrantedAuthority> authorities = new ArrayList<>();
+        Set<GrantedAuthority> authorities = new HashSet<>();
         for (SysRole role : sysUser.getRoles()) {
             authorities.add(new GeneralGrantedAuthority(role.getCode(), role.getPermissions()));
         }
-        return new org.springframework.security.core.userdetails.User(sysUser.getUsername(),
+//        AuthorityUtils.commaSeparatedStringToAuthorityList()
+        return new AuthUser(sysUser.getUsername(),
                 sysUser.getPassword(),
                 sysUser.getState() == 1,
                 sysUser.getAccountExpired() == 0,

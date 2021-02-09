@@ -3,7 +3,6 @@
  */
 package com.rolex.alphax.controller.vo;
 
-import com.sun.org.apache.regexp.internal.RE;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -17,13 +16,18 @@ public class Response {
 
     private int code;
     private String msg;
+    private Object result;
 
-    public static Response success(){
-        return new Response(200, "success");
+    public static Response success(Object result) {
+        return new Response(200, "success", result);
     }
 
-    public static Response failure(int code, String msg){
-        return new Response(code, msg);
+    public static Response success() {
+        return new Response(200, "success", null);
+    }
+
+    public static Response failure(int code, String msg) {
+        return new Response(code, msg, null);
     }
 
 }
