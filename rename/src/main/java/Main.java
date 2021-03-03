@@ -19,9 +19,9 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        list("D:/Dev/IdeaProjects/rolex/AlphaX", new String[]{".git"});
+        list("D:/Dev/IdeaProjects/AlphaX", new String[]{".git"});
 
-        Collection<File> files = FileUtils.listFiles(new File("D:/Dev/IdeaProjects/rolex/AlphaX"), null, true);
+        Collection<File> files = FileUtils.listFiles(new File("D:/Dev/IdeaProjects/AlphaX"), null, true);
         for (File file : files) {
             if(!file.getPath().contains(".git") && !file.getPath().contains(".idea")) {
                 String s = FileUtils.readFileToString(new File(file.getPath()));
