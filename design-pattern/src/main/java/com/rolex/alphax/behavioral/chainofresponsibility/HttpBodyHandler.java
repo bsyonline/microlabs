@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2020
  */
 @Slf4j
-public class HttpBodyHandler extends Handler{
+public class HttpBodyHandler extends Handler {
 
     @Override
     public void handle() {
